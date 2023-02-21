@@ -84,4 +84,10 @@ class User extends \TCG\Voyager\Models\User
     {
         return $this->hasMany(PostFavorite::class);
     }
+
+
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'usernotify';
+    }
 }

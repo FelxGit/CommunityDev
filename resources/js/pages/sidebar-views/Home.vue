@@ -146,7 +146,7 @@
             </div>
             <div class="flex gap-6">
                 <span>
-                    <span>{{ abbreviateNumber(_.get(post, 'likes', []).length) }}</span> 
+                    <span>{{ abbreviateNumber(_.filter(_.get(post, 'likes', []), v => v.deleted_at == null).length) }}</span>
                     <span
                         @click="likeUnlikePost($event, post.likes, post.id)"
                         :class="[
@@ -413,7 +413,6 @@ export default {
     ...mutations,
     ...actions,
     initData() {
-      console.log('initData');  
       this.getCategories();
       this.getTags();
       this.getPosts();
@@ -622,11 +621,7 @@ export default {
       return this._.isEmpty(this._.get(userLike, "deleted_at"));
     },
     redirectToPost(post) {
-        let param = post;
-        this.$router.push({
-            path: "post/" + post.id,
-            params: { id: post.id }
-        });
+        this.$router.push({ name: 'post', params: { id: post.id } });
     },
     resetPosts() {
         this.posts = [];

@@ -5,7 +5,6 @@
 
 <script>
 export default {
-  name: 'main',
   props: ['data']
 }
 </script>

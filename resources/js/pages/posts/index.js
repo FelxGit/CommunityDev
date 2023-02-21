@@ -2,7 +2,7 @@ import Post from './Post.vue'
 
 const post = [
   {
-    path: '/post/:id',
+    path: '/posts/:id',
     name: 'post',
     component: Post,
     props: true,

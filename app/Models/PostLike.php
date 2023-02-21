@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Post;
 
 class PostLike extends MainModel
 {
@@ -51,6 +52,18 @@ class PostLike extends MainModel
     /*======================================================================
      * RELATIONSHIPS
      *======================================================================*/
+
+     /**
+     * This method return one post.
+     *
+     * @return collection
+     */
+    public function post()
+    {
+        return $this->BelongsTo(Post::class);
+    }
+
+
     /*======================================================================
      * SCOPES
      *======================================================================*/

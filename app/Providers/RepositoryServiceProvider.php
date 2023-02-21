@@ -22,7 +22,8 @@ class RepositoryServiceProvider extends ServiceProvider
             'PostTag',
             'PostLike',
             'PostFavorite',
-            'PostComment'
+            'PostComment',
+            'Notification'
         );
 
         foreach ($models as $index => $model) {

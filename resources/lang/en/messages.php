@@ -70,6 +70,7 @@ return [
     'Nickname' => 'Nickname',
     'NoAccount' => "Don't have an account?",
     'NewPassword' => 'New Password',
+    'Notification' => ':name :action your :media_type.',
     // O
 
     // P

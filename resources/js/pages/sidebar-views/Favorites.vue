@@ -145,7 +145,6 @@ export default {
 
       setTimeout(() => {
         let tabscontent = $(".favorite div.tab-pane");
-        console.log(tabscontent);
         tabscontent.scroll(() => {
             let bottomOfWindow = tabscontent.scrollTop() + window.innerHeight  > tabscontent.prop('scrollHeight');
             if (bottomOfWindow && !this.isLoadingPost) {
