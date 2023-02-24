@@ -1,5 +1,49 @@
+INSTALLATION GUIDE
 
-#exec docker terminal
-winpty docker exec -it 8ea8bed1ca22 //bin//sh
-#run npm commands
-docker-compose run npm
+Prerequisite:
+Docker engine
+
+STEPS TO RUN THE PROJECT
+Clone this repo from this url
+https://github.com/ChronoDevs/chronoknowledge_laravel
+
+Open project folder on your vscode IDE
+Inside of your vscode terminal,
+
+Please run
+- docker-compose up -d
+
+Once you build your docker
+EXEC
+- docker ps
+
+Now please find your container ID from the IMAGE name chronoknowledge_laravel_php, and copy
+
+Once you got your container id
+EXEC
+- docker exec -it <your-container-id> //bin//sh
+if error,
+EXEC
+- winpty docker exec -it <container-id> //bin//sh
+
+This will lead you inside docker terminal
+
+INSIDE, please run
+- composer install
+- php artisan passport:install
+
+To generate table data, please run
+- php artisan migrate --seed
+
+To enable admin user for the Community admin panel, please run
+- php artisan voyager:admin admin@chronoknowledge.com
+
+------------------------
+FRONTEND PART / Outside of your docker terminal
+
+Please run
+- docker-compose run npm install
+- docker-compose run npm run watch
+
+------------------------
+
