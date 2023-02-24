@@ -54,7 +54,7 @@ class PostService
         ];
 
         $expiry = 604800; // 1 week
-        // $rtn = \Cache::remember('posts', $expiry, function () use ($data) {
+        $rtn = \Cache::remember('posts', $expiry, function () use ($data) {
 
             if (!empty(request()->get('favorites'))) {
                 $favorites = auth()->guard('api')->user()->favorites()->whereNull('deleted_at')->get();
@@ -70,7 +70,7 @@ class PostService
             }
 
             return $posts;
-        // });
+        });
 
         return $rtn;
     }

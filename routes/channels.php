@@ -18,6 +18,5 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
 });
 
 Broadcast::channel('usernotify.{user_id}', function ($user, $user_id) {
-    dd($user, $user_id);
     return $user->id == $user_id;
 });
