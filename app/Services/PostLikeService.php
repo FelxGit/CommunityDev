@@ -8,23 +8,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
 use App\Models\User;
 use App\Models\Post;
-use App\Models\PostLike;
 use App\Models\Notification as NotifModel;
 use App\Notifications\PostLikeNotification;
 use App\Interfaces\PostLikeRepositoryInterface;
-use Exception;
+use App\Interfaces\NotificationRepositoryInterface;
 
 class PostLikeService
 {
     public $repository;
+    public $notiRepository;
 
     /**
-     * @param CategoryService $service
+     * @param PostLikeRepositoryInterface $service
+     * @param NotificationRepositoryInterface $service
      * @return void
      */
-    public function __construct(PostLikeRepositoryInterface $repository)
-    {
+    public function __construct(
+        PostLikeRepositoryInterface $repository,
+        NotificationRepositoryInterface $notiRepository
+    ) {
         $this->repository = $repository;
+        $this->notiRepository = $notiRepository;
     }
 
     /**
@@ -45,72 +49,8 @@ class PostLikeService
             try {
                 \DB::beginTransaction();
 
-                $notifiable_ids  = [];
+                $this->notiRepository->notifyUsers($like);
 
-                $user = auth()->guard('api')->user();
-                $post = Post::find($like->post_id);
-
-                $postLikesUserIds = $post
-                    ->likes()
-                    ->where('user_id', '!=', $like->user_id)
-                    ->pluck('user_id')
-                    ->toArray();
-
-                $postFavoritesUserIds = $post
-                    ->favorites()
-                    ->where('user_id', '!=', $like->user_id)
-                    ->pluck('user_id')
-                    ->toArray();
-
-                if ($post->user_id != $like->user_id) {
-                    $notifiable_ids = array_merge($postLikesUserIds, $postFavoritesUserIds, [ $post->user_id ]);
-                } else {
-                    $notifiable_ids = array_merge($postLikesUserIds, $postFavoritesUserIds);
-                }
-
-                $userLikedList = User::whereIn('id', $notifiable_ids)->get();
-
-                $pusher = Websocket::connect();
-
-                foreach ($userLikedList as $to_user) {
-
-                    $post = Post::find($like->post_id);
-
-                    $event = 'UserNotify';
-                    $data = [
-                        'user_id' => $to_user->id,
-                        'like_id' => $like->id,
-                        'postLikesCount' => count($postLikesUserIds),
-                        'link' => url("/posts/{$like->post_id}"),
-                        'profileImage' => '',
-                        'post' => $post,
-                        'message' => __('messages.Notification', [
-                            'name' => '<span class="font-semibold text-gray-900 dark:text-white">' . $user->name . '</span>',
-                            'action' => count($postLikesUserIds) > 1? 'and others ' : '' . Globals::ACTION["LIKED"],
-                            'media_type' => Globals::MEDIA_TYPE['POST']
-                        ])
-                    ];
-
-                    $hasNotification = NotifModel::where(
-                        [
-                            [ 'notifiable_id', $user->id ],
-                            [ 'data->user_id', $to_user->id ]
-                        ]
-                    )->exists();
-
-                    if (empty($hasNotification)) {
-                        Notification::send($user, new PostLikeNotification($user, $data));
-
-                        $notification = NotifModel::where(
-                            [
-                                [ 'notifiable_id', $user->id ],
-                                [ 'data->user_id', $to_user->id ]
-                            ]
-                        )->latest()->first()->toArray();
-
-                        $pusher->broadcast(['usernotify.' . $to_user->id], $event, $notification);
-                    }
-                }
                 \DB::commit();
             } catch (\Exception $e) {
                 \DB::rollback();
@@ -141,72 +81,8 @@ class PostLikeService
             try {
                 \DB::beginTransaction();
 
-                $notifiable_ids  = [];
+                $this->notiRepository->notifyUsers($like);
 
-                $user = auth()->guard('api')->user();
-                $post = Post::find($like->post_id);
-
-                $postLikesUserIds = $post
-                    ->likes()
-                    ->where('user_id', '!=', $like->user_id)
-                    ->pluck('user_id')
-                    ->toArray();
-
-                $postFavoritesUserIds = $post
-                    ->favorites()
-                    ->where('user_id', '!=', $like->user_id)
-                    ->pluck('user_id')
-                    ->toArray();
-
-                if ($post->user_id != $like->user_id) {
-                    $notifiable_ids = array_merge($postLikesUserIds, $postFavoritesUserIds, [ $post->user_id ]);
-                } else {
-                    $notifiable_ids = array_merge($postLikesUserIds, $postFavoritesUserIds);
-                }
-
-                $userLikedList = User::whereIn('id', $notifiable_ids)->get();
-
-                $pusher = Websocket::connect();
-
-                foreach ($userLikedList as $to_user) {
-
-                    $post = Post::find($like->post_id);
-
-                    $event = 'UserNotify';
-                    $data = [
-                        'user_id' => $to_user->id,
-                        'like_id' => $like->id,
-                        'postLikesCount' => count($postLikesUserIds),
-                        'link' => url("/posts/{$like->post_id}"),
-                        'profileImage' => '',
-                        'post' => $post,
-                        'message' => __('messages.Notification', [
-                            'name' => '<span class="font-semibold text-gray-900 dark:text-white">' . $user->name . '</span>',
-                            'action' => count($postLikesUserIds) > 1? 'and others ' : '' . Globals::ACTION["LIKED"],
-                            'media_type' => Globals::MEDIA_TYPE['POST']
-                        ])
-                    ];
-
-                    $hasNotification = NotifModel::where(
-                        [
-                            [ 'notifiable_id', $user->id ],
-                            [ 'data->user_id', $to_user->id ]
-                        ]
-                    )->exists();
-
-                    if (empty($hasNotification)) {
-                        Notification::send($user, new PostLikeNotification($user, $data));
-
-                        $notification = NotifModel::where(
-                            [
-                                [ 'notifiable_id', $user->id ],
-                                [ 'data->user_id', $to_user->id ]
-                            ]
-                        )->latest()->first()->toArray();
-
-                        $pusher->broadcast(['usernotify.' . $to_user->id], $event, $notification);
-                    }
-                }
                 \DB::commit();
             } catch (\Exception $e) {
                 \DB::rollback();

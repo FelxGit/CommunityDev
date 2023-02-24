@@ -236,6 +236,7 @@
           console.log("Echo connected to PieSocket channel!");
         })
         .listen(".UserNotify", (data) => {
+          console.log('Broadcast:' + JSON.stringify(data))
           this.notifications.unshift(data);
         });
     },
