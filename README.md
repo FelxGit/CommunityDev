@@ -35,7 +35,8 @@ INSIDE, please run
 To generate table data, please run
 - php artisan migrate --seed
 
-To enable admin user for the Community admin panel, please run
+To enable Community admin, please run
+- php artisan voyager:install
 - php artisan voyager:admin admin@chronoknowledge.com
 
 ------------------------
