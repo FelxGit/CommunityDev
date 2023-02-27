@@ -70,6 +70,8 @@ return [
     'Nickname' => 'Nickname',
     'NoAccount' => "Don't have an account?",
     'NewPassword' => 'New Password',
+    'NotiOriginUser' => ':name :action your :media_type.',
+    'NotiOriginRelatedUsers' => ':name :action :notiOriginUser \'s :media_type.',
     // O
 
     // P

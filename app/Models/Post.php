@@ -110,8 +110,7 @@ class Post extends MainModel
      */
     public function likes()
     {
-        return $this->hasMany(PostLike::class, 'post_id')
-            ->whereNull('deleted_at');
+        return $this->hasMany(PostLike::class, 'post_id');
     }
 
     /**

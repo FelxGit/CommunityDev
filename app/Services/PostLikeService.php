@@ -1,21 +1,34 @@
 <?php
 namespace App\Services;
 
+use App\Helpers\Globals;
+use App\Helpers\Websocket;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\PostLike;
+use Illuminate\Support\Facades\Notification;
+use App\Models\User;
+use App\Models\Post;
+use App\Models\Notification as NotifModel;
+use App\Notifications\PostLikeNotification;
 use App\Interfaces\PostLikeRepositoryInterface;
-use Exception;
+use App\Interfaces\NotificationRepositoryInterface;
 
 class PostLikeService
 {
+    public $repository;
+    public $notiRepository;
+
     /**
-     * @param CategoryService $service
+     * @param PostLikeRepositoryInterface $service
+     * @param NotificationRepositoryInterface $service
      * @return void
      */
-    public function __construct(PostLikeRepositoryInterface $repository)
-    {
+    public function __construct(
+        PostLikeRepositoryInterface $repository,
+        NotificationRepositoryInterface $notiRepository
+    ) {
         $this->repository = $repository;
+        $this->notiRepository = $notiRepository;
     }
 
     /**
@@ -30,7 +43,22 @@ class PostLikeService
         ];
 
         $like = $this->repository->add($data);
-        \Cache::pull('posts');
+
+        if ($like) {
+
+            try {
+                \DB::beginTransaction();
+
+                $this->notiRepository->notifyUsers($like);
+
+                \DB::commit();
+            } catch (\Exception $e) {
+                \DB::rollback();
+                \Log::error('Exception: ' . $e->getMessage());
+            }
+
+            \Cache::pull('posts');
+        }
 
         return $like;
     }
@@ -47,6 +75,21 @@ class PostLikeService
         ];
 
         $like = $this->repository->adjust($id, $data);
+
+        if ($like) {
+
+            try {
+                \DB::beginTransaction();
+
+                $this->notiRepository->notifyUsers($like);
+
+                \DB::commit();
+            } catch (\Exception $e) {
+                \DB::rollback();
+                \Log::error('Exception: ' . $e->getMessage());
+            }
+        }
+
         \Cache::pull('posts');
 
         return $like;

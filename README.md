@@ -30,6 +30,14 @@ This will lead you inside docker terminal
 
 INSIDE, please run
 - composer install
+- php artisan passport:install
+
+To generate table data, please run
+- php artisan migrate --seed
+
+To enable Community admin, please run
+- php artisan voyager:install
+- php artisan voyager:admin admin@chronoknowledge.com
 
 ------------------------
 FRONTEND PART / Outside of your docker terminal
@@ -37,4 +45,6 @@ FRONTEND PART / Outside of your docker terminal
 Please run
 - docker-compose run npm install
 - docker-compose run npm run watch
+
+------------------------
 

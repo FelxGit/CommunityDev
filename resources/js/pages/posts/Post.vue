@@ -21,7 +21,7 @@
           </div>
           <div class="flex gap-6">
               <span>
-                <span>{{ abbreviateNumber(_.get(post, 'likes', []).length) }}</span>
+                <span>{{ abbreviateNumber(_.filter(_.get(post, 'likes', []), v => v.deleted_at == null).length) }}</span>
                 <span @click="likeUnlikePost($event, post.likes, post.id)" :class="[{ 'text-b-link': isLikedByUser(post.likes) && isLikedNotDeleted(post.likes) }]" role="button">
                   <i class="fa-regular fa-thumbs-up pr-3"></i>{{ lang.get('words.Likes') }}
                 </span>
@@ -57,8 +57,9 @@
               <div class="flex-shrink-0 mr-3">
                 <img class="mt-2 rounded-full w-8 h-8 sm:w-10 sm:h-10" src="../../../assets/icons/user-logo.png" alt="">
               </div>
-              <div class="flex-1 bg-bt-secondary rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                <strong>{{ _.get(comment, 'user.username', '') }}</strong> <span class="text-xs text-gray-400">{{ moment(_.get(post, "created_at", "")).format("MMM Do YYYY, h:mm A") }}</span>
+              <div class="flex-1 bg-bt-secondary rounded-lg px-4 py-2 s
+              +m:px-6 sm:py-4 leading-relaxed"> 
+                <strong>{{ _.get(comment, 'user.name', '') }}</strong> <span class="text-xs text-gray-400">{{ moment(_.get(post, "created_at", "")).format("MMM Do YYYY, h:mm A") }}</span>
                 <p class="text-sm break-all" v-html="_.get(comment, 'description', '')"></p>
                 <div v-show="_.get(comment, 'replies', []).length > 0" class="mt-4 flex items-center">
                   <div class="flex -space-x-2 mr-2">
@@ -76,7 +77,7 @@
                       <img class="mt-3 rounded-full w-6 h-6 sm:w-8 sm:h-8" src="../../../assets/icons/user-logo.png" alt="">
                     </div>
                     <div class="flex-1 border rounded-lg px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
-                      <strong>Sarah</strong> <span class="text-xs text-gray-400">3:34 PM</span>
+                      <strong>Sarah</strong> <span  class="text-xs text-gray-400">3:34 PM</span>
                       <p class="text-xs sm:text-sm">{{ _.get(commentReply, 'description')}}</p>
                     </div>
                   </div>

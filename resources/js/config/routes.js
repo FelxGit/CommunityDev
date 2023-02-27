@@ -18,7 +18,8 @@ const routes = [
       ...postRoutes
     ]
   },
-  ...authRoutes
+  ...authRoutes,
+  ...postRoutes
 ];
 
 const router = new Router({

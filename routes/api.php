@@ -43,4 +43,6 @@ Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function() {
     Route::delete('favorites', 'PostFavoriteController@destroy');
 
     Route::post('comments', 'PostCommentController@store');
+
+    Route::get('notifications', 'NotificationController@index');
 });

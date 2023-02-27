@@ -1,13 +1,16 @@
 <?php
 namespace App\Services;
 
+use App\Helpers\Websocket;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
 use App\Models\Post;
 use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\PostRepositoryInterface;
 use App\Interfaces\TagRepositoryInterface;
 use App\Interfaces\PostTagRepositoryInterface;
+use App\Events\UserNotify;
 use Exception;
 
 class PostService
@@ -95,7 +98,6 @@ class PostService
         }, request()->get('tags'));
         $postTagData = [];
 
-
         \DB::beginTransaction();
         try {
             $post = $this->repository->add($data);
@@ -107,13 +109,15 @@ class PostService
                     'tag_id' => $tag->id
                 ];
             }
-           $this->postTagRepository->addBulk($postTagData);
+
+            $this->postTagRepository->addBulk($postTagData);
 
             \Cache::pull('tagsByPopularity');
             \Cache::pull('tags');
             \Cache::pull('posts');
             \DB::commit();
         } catch (\Exception $e) {
+            \Log::error('Exception: ' . $e->getMessage());
             \DB::rollback();
         }
 
