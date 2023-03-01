@@ -5,17 +5,24 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\PostFavorite;
 use App\Interfaces\PostFavoriteRepositoryInterface;
+use App\Interfaces\NotificationRepositoryInterface;
 use Exception;
 
 class PostFavoriteService
 {
+    public $repository;
+    public $notiRepository;
+
     /**
      * @param CategoryService $service
      * @return void
      */
-    public function __construct(PostFavoriteRepositoryInterface $repository)
-    {
+    public function __construct(
+        PostFavoriteRepositoryInterface $repository,
+        NotificationRepositoryInterface $notiRepository
+    ) {
         $this->repository = $repository;
+        $this->notiRepository = $notiRepository;
     }
 
     /**
@@ -30,7 +37,22 @@ class PostFavoriteService
         ];
 
         $favorite = $this->repository->add($data);
-        \Cache::pull('posts');
+
+        if ($favorite) {
+
+            try {
+                \DB::beginTransaction();
+
+                $this->notiRepository->notifyPostUsers($favorite);
+
+                \DB::commit();
+            } catch (\Exception $e) {
+                \DB::rollback();
+                \Log::error('Exception: ' . $e->getMessage());
+            }
+
+            \Cache::pull('posts');
+        }
 
         return $favorite;
     }
@@ -47,7 +69,22 @@ class PostFavoriteService
         ];
 
         $favorite = $this->repository->adjust($id, $data);
-        \Cache::pull('posts');
+
+        if ($favorite) {
+
+            try {
+                \DB::beginTransaction();
+
+                $this->notiRepository->notifyPostUsers($favorite);
+
+                \DB::commit();
+            } catch (\Exception $e) {
+                \DB::rollback();
+                \Log::error('Exception: ' . $e->getMessage());
+            }
+
+            \Cache::pull('posts');
+        }
 
         return $favorite;
     }

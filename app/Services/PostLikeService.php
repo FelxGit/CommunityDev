@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Notification;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Notification as NotifModel;
-use App\Notifications\PostLikeNotification;
 use App\Interfaces\PostLikeRepositoryInterface;
 use App\Interfaces\NotificationRepositoryInterface;
 
@@ -49,7 +48,7 @@ class PostLikeService
             try {
                 \DB::beginTransaction();
 
-                $this->notiRepository->notifyUsers($like);
+                $this->notiRepository->notifyPostUsers($like);
 
                 \DB::commit();
             } catch (\Exception $e) {
@@ -81,7 +80,7 @@ class PostLikeService
             try {
                 \DB::beginTransaction();
 
-                $this->notiRepository->notifyUsers($like);
+                $this->notiRepository->notifyPostUsers($like);
 
                 \DB::commit();
             } catch (\Exception $e) {
