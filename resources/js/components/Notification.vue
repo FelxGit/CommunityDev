@@ -224,7 +224,7 @@
       this.NOTI_TYPE = {
         PRESENTATION: "",
         FOLLOW: "",
-        LIKE: "App\\\Notifications\\\PostLikeNotification",
+        LIKE: "App\\\Notifications\\\PostNotification",
         COMMENT: "",
         VIDEO: "",
       };

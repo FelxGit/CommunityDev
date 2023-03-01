@@ -10,21 +10,9 @@ class Globals
      * CONSTANTS
      *======================================================================*/
 
-    CONST MEDIA_TYPE = [
-        'PRESENTATION' => '',
-        'FOLLOW' => '',
-        'LIKE' => '',
-        'COMMENT' => '',
-        'POST' => 'post',
-        'VIDEO' => ''
-    ];
-
-    CONST NOTI_TYPE = [
-        'POSTLIKE' => 'App\Notifications\PostLikeNotification'
-    ];
-
-    CONST ACTION = [
-        'LIKED' => 'liked'
+    CONST NOTIFIABLE_TYPE = [
+        'post_likes' => 'App\\Models\\PostLike',
+        'post_favorites' => 'App\\Models\\PostFavorite',
     ];
 
     /*======================================================================

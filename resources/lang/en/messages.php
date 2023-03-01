@@ -39,6 +39,8 @@ return [
     'FirstName' => 'First Name',
     'Favorites' => 'Favorites',
     'FAQs' => 'FAQs',
+    'FavoriteNotiOriginUser' => ':name set your :media_type as his/her :action.',
+
     // G
     'Gender' => 'Gender',
     'GetItOn' => 'Get it on',
@@ -59,6 +61,8 @@ return [
     'LandingPage' => 'Landing Page',
     'Logout' => 'Logout',
     'Listing' => 'Listing',
+    'LikeNotiOriginUser' => ':name :action your :media_type.',
+    'LikeNotiOriginRelatedUsers' => ':name :action :notiOriginUser \'s :media_type.',
 
     // M
     'Male' => 'Male',
@@ -70,8 +74,6 @@ return [
     'Nickname' => 'Nickname',
     'NoAccount' => "Don't have an account?",
     'NewPassword' => 'New Password',
-    'NotiOriginUser' => ':name :action your :media_type.',
-    'NotiOriginRelatedUsers' => ':name :action :notiOriginUser \'s :media_type.',
     // O
 
     // P
