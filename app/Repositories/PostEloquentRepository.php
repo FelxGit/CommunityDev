@@ -88,7 +88,7 @@ class PostEloquentRepository extends MainEloquentRepository implements PostRepos
                 $rtn = $rtn->orderBy('created_at', 'desc');
             }
 
-            $rtn = $rtn->with(['user', 'category', 'tags', 'likes', 'favorites'])->paginate(10);
+            $rtn = $rtn->with(['user', 'category', 'tags', 'likes', 'favorites', 'comments'])->paginate(10);
         }
 
         return $rtn;
@@ -102,7 +102,7 @@ class PostEloquentRepository extends MainEloquentRepository implements PostRepos
         if (!empty($this->Model)) {
             $rtn = $this->Model::whereIn('id', $ids)
                 ->orderByRaw(\DB::raw("FIELD(id, $implodedIds)"))
-                ->with(['user', 'category', 'tags', 'likes', 'favorites'])
+                ->with(['user', 'category', 'tags', 'likes', 'favorites', 'comments'])
                 ->paginate(Globals::mTag()::PAGINATE_COUNT);
         }
 
