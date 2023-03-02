@@ -114,8 +114,9 @@
           ></div> -->
           <div
             v-for="(post, index) in posts"
+            @click.self="redirectToPost(post)"
             :key="index"
-            class="grid p-6 gap-6 border border-white bg-bt-secondary rounded-lg"
+            class="grid p-6 gap-6 border border-white bg-bt-secondary rounded-lg cursor-pointer"
           >
             <div class="flex gap-6">
               <div>
@@ -159,10 +160,13 @@
                         <i class="fa-regular fa-thumbs-up pr-3"></i>{{ lang.get("words.Likes") }}
                     </span>
                 </span>
-              <span @click="redirectToPost(post)" role="button"
-                ><i class="fa-regular fa-comment pr-3"></i
-                ><span>{{ lang.get("words.Comments") }}</span></span
-              >
+                <span>
+                  <span>{{ abbreviateNumber(_.filter(_.get(post, 'comments', []), v => v.deleted_at == null).length) }}</span>
+                  <span @click="redirectToPost(post)" role="button">
+                    <i class="fa-regular fa-comment pr-3"></i>
+                    {{ lang.get("words.Comments") }}
+                  </span>
+                </span>
               <span>
                 <span>{{ abbreviateNumber(_.get(post, 'favorites', []).length) }}</span> 
                 <span
@@ -233,14 +237,17 @@
               >
                 <i class="fa-regular fa-thumbs-up pr-3"></i>{{ lang.get("words.Likes") }}
               </span>
-              <span @click="redirectToPost(post)" role="button"
-                ><i class="fa-regular fa-comment pr-3"></i
-                ><span>{{ lang.get("words.Comments") }}</span></span
-              >
-              <span
-                ><i class="fa-regular fa-star pr-3" role="button"></i
-                ><span>{{ lang.get("words.Favorites") }}</span></span
-              >
+              <span>
+                <span>{{ abbreviateNumber(_.filter(_.get(post, 'comments', []), v => v.deleted_at == null).length) }}</span>
+                <span @click="redirectToPost(post)" role="button">
+                  <i class="fa-regular fa-comment pr-3"></i>
+                  {{ lang.get("words.Comments") }}
+                </span>
+              </span>
+              <span>
+                <i class="fa-regular fa-star pr-3" role="button"></i>
+                <span>{{ lang.get("words.Favorites") }}</span>
+              </span>
             </div>
           </div>
         </div>
@@ -295,10 +302,13 @@
               >
                 <i class="fa-regular fa-thumbs-up pr-3"></i>{{ lang.get("words.Likes") }}
               </span>
-              <span @click="redirectToPost(post)" role="button"
-                ><i class="fa-regular fa-comment pr-3"></i
-                ><span>{{ lang.get("words.Comments") }}</span></span
-              >
+              <span>
+                <span>{{ abbreviateNumber(_.filter(_.get(post, 'comments', []), v => v.deleted_at == null).length) }}</span>
+                <span @click="redirectToPost(post)" role="button">
+                  <i class="fa-regular fa-comment pr-3"></i>
+                  {{ lang.get("words.Comments") }}
+                </span>
+              </span>
               <span
                 ><i class="fa-regular fa-star pr-3" role="button"></i
                 ><span>{{ lang.get("words.Favorites") }}</span></span

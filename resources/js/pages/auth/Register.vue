@@ -27,7 +27,10 @@
           <div>
             <label class="grid gap-y-2">
               <span class="font-bold">{{ lang.get('words.FirstName') }}</span>
-              <input v-model.trim="$v.form.first_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="First Name"/>
+              <input
+                v-model.trim="$v.form.first_name.$model"
+                @input="(val) => (form.first_name = _.startCase(_.toLower(form.first_name)))"
+                class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="First Name"/>
             </label>
             <div class="errors">
               <error-input :name="'first_name'" :validations="['required', 'min.string', 'max.string']"></error-input>
@@ -36,7 +39,10 @@
           <div>
             <label class="grid gap-y-2">
               <span class="font-bold">{{ lang.get('words.MiddleName') }} <span class="text-b-mute">(optional)</span></span>
-              <input v-model.trim="$v.form.middle_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Middle Name"/>
+              <input
+                v-model.trim="$v.form.middle_name.$model"
+                @input="(val) => (form.middle_name = _.startCase(_.toLower(form.middle_name)))"
+                class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Middle Name"/>
             </label>
             <div class="errors">
               <error-input :name="'middle_name'" :validations="['min.string', 'max.string']"></error-input>
@@ -45,7 +51,10 @@
           <div>
             <label class="grid gap-y-2">
               <span class="font-bold">{{ lang.get('words.LastName') }}</span>
-              <input v-model.trim="$v.form.last_name.$model" class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Last Name"/>
+              <input
+                v-model.trim="$v.form.last_name.$model"
+                @input="(val) => (form.last_name = _.startCase(_.toLower(form.last_name)))"
+                class="h-14 w-full rounded-lg bg-b-input border-b-input focus:placeholder:opacity-0" type="text" placeholder="Last Name"/>
             </label>
             <div class="errors">
               <error-input :name="'last_name'" :validations="['required', 'min.string', 'max.string']"></error-input>
@@ -55,14 +64,20 @@
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Username') }}</span>
-                <input v-model="$v.form.username.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="text" placeholder="Username"/>
+                <input
+                  v-model="$v.form.username.$model"
+                  @input="(val) => (form.username = _.startCase(_.toLower(form.username)))"
+                  class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="text" placeholder="Username"/>
               </label>
               <error-input :name="'username'" :validations="['required', 'min.string', 'max.string']"></error-input>
             </div>
             <div>
               <label class="grid gap-y-2">
                 <span class="font-bold">{{ lang.get('words.Nickname') }}</span>
-                <input v-model="$v.form.nick_name.$model" class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="text" placeholder="Nickname"/>
+                <input
+                  v-model="$v.form.nick_name.$model"
+                  @input="(val) => (form.nick_name = _.startCase(_.toLower(form.nick_name)))"
+                  class="h-14 w-full bg-b-input rounded-lg border-b-input focus:placeholder:opacity-0" type="text" placeholder="Nickname"/>
               </label>
               <error-input :name="'nick_name'" :validations="['min.string', 'max.string']"></error-input>
             </div>

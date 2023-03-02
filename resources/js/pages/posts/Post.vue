@@ -26,7 +26,13 @@
                   <i class="fa-regular fa-thumbs-up pr-3"></i>{{ lang.get('words.Likes') }}
                 </span>
               </span>
-              <span @click="toggleDiscussionForm" role="button"><i class="fa-regular fa-comment pr-3"></i><span>{{ lang.get('words.Comments') }}</span></span>
+              <span @click="toggleDiscussionForm" role="button">
+                <span>{{ abbreviateNumber(_.filter(_.get(post, 'comments', []), v => v.deleted_at == null).length) }}</span>
+                <span>
+                  <i class="fa-regular fa-comment pr-3"></i>
+                  {{ lang.get("words.Comments") }}
+                </span>
+              </span>
               <span>
                 <span >{{ abbreviateNumber(_.get(post, 'favorites', []).length) }}</span>
                 <span @click="setAsFavorite($event, post.favorites, post.id)" :class="[{ 'text-amber-400': isFavoriteByUser(post.favorites) && isFavoriteNotDeleted(post.favorites) }]" role="button">

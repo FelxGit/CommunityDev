@@ -80,7 +80,7 @@ return [
     'Password' => 'Password',
     'PasswordConfirmation' => 'Password Confirmation',
     'PopularTags' => 'Popular Tags',
-    'PlainDescription' => 'Plain Description',
+    'PlainDescription' => 'Description',
     'PrivacyPolicy' => 'Privacy Policy',
     'SelectACategory' => 'Select a category',
     // Q
