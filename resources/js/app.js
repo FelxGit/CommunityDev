@@ -1,19 +1,19 @@
 require('./bootstrap')
 
+import jQuery from 'jquery'
 import Vue from 'vue'
 import App from './pages/App'
 import lang from './config/lang.js'
 import axios from './config/axios.js'
 import router from './config/routes.js'
 import moment from 'moment'
-import CKEditor from '@ckeditor/ckeditor5-vue2'
 import vuelidate from 'vuelidate'
+// import trumbowyg from 'trumbowyg'
 
 import { getters, mutations, actions } from "./store";
 
 Vue.use(router)
 Vue.use(vuelidate)
-Vue.use(CKEditor);
 Vue.prototype.$http = axios
 Vue.prototype.moment = moment
 
@@ -23,6 +23,7 @@ const app = new Vue({
     router,
     validations:{},
     created: function () {
+
         mutations.setLoading(true)
         let user = localStorage['chronoknowledge.user']? JSON.parse(localStorage['chronoknowledge.user']) : null;
 

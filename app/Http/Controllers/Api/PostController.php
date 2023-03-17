@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Services\PostService;
+use App\Http\Requests\FileRequest;
 use App\Http\Controllers\Controller;
 
 class PostController extends Controller
@@ -47,6 +48,22 @@ class PostController extends Controller
     {
         $rtn = null;
         $rtn = $this->service->acquire($id);
+        return $rtn;
+    }
+
+    /**
+     * @param Reqeust $request
+     * @return JSON $rtn
+     */
+    public function upload(FileRequest $request)
+    {
+        $rtn = null;
+
+        $file = $request->file('image');
+        $fileType = $request->get('fileType') ?: 'image';
+
+        // dd($file, $fileType, 'upload');
+        $rtn = $this->service->upload($file, $fileType);
         return $rtn;
     }
 }
