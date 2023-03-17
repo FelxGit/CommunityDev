@@ -10,6 +10,14 @@ class Globals
      * CONSTANTS
      *======================================================================*/
 
+     const FILETYPE_IMAGE = 'image';
+     const FILETYPE_CSV = 'csv';
+ 
+    //  const CSV_ACCEPTEDEXTENSION = ['csv'];
+    //  const CSV_ACCEPTEDMIMES = ['csv', 'xlsx'];
+     const IMG_ACCEPTEDEXTENSION = ['gif', 'jpg', 'jpeg', 'png'];
+    //  const CONVERSION_BYTETOKILOBYTE = 1024;
+
     CONST NOTIFIABLE_TYPE = [
         'post_likes' => 'App\\Models\\PostLike',
         'post_favorites' => 'App\\Models\\PostFavorite',

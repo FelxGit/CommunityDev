@@ -1,17 +1,17 @@
 <?php
 namespace App\Services;
 
-use App\Helpers\Websocket;
+use App\Helpers\Globals;
+use App\Helpers\Upload;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Notification;
+use Illuminate\Http\UploadedFile;
 use App\Models\Post;
 use App\Interfaces\UserRepositoryInterface;
 use App\Interfaces\PostRepositoryInterface;
 use App\Interfaces\TagRepositoryInterface;
 use App\Interfaces\PostTagRepositoryInterface;
-use App\Events\UserNotify;
-use Exception;
 
 class PostService
 {
@@ -100,6 +100,7 @@ class PostService
 
         \DB::beginTransaction();
         try {
+            $data['html_description'] = $this->getNewDescription($data['html_description']);
             $post = $this->repository->add($data);
             $tags = $this->tagRepository->addBulk($tagData);
 
@@ -122,6 +123,48 @@ class PostService
         }
 
         return $post;
+    }
+
+    /**
+     * replace text of content app tmp url with app stored url
+     *
+     * @param String $content
+     *
+     * @return String $rtn
+     */
+    private function getNewDescription(String $content)
+    {
+        $rtn = $content;
+        $uploadedUrls = Upload::saveFromUrl($content);
+
+        if (!empty($uploadedUrls)) {
+            foreach ($uploadedUrls as $url) {
+                $rtn = str_replace('tmp/' . $url, $url, $rtn);
+            }
+        }
+        return $rtn;
+    }
+
+    /**
+     * upload a file (image/csv)
+     *
+     * @param UploadedFile $file
+     * @param String $fileType
+     *
+     * @return Bool|String $rtn
+     */
+    public function upload(UploadedFile $file, $fileType)
+    {
+        $rtn = [];
+
+        if ($fileType == Globals::FILETYPE_IMAGE) {
+            $rtn = Upload::saveTemp($file, $fileType);
+        }
+
+        return [
+            'success' => true,
+            'url' => $rtn,
+        ];
     }
 }
 ?>

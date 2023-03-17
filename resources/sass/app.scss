@@ -66,6 +66,9 @@ body {
   font-size: 0.80rem!important;
   line-height: 1.5rem!important;
 }
+
+// END FLOWBITE OVERRIDE
+
 /* width */
 
 ::-webkit-scrollbar {
@@ -185,14 +188,25 @@ body {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' fill='rgb(165, 168, 172, 0.7)0'><polygon points='0,0 0,100 50,50'/></svg>");
 }
 
+// OVERRIDE CKEDITOR
+
 .ck .ck-toolbar__items {
   font-size: 10px!important;
 }
 .ck-editor__editable {
-  min-height: 150px!important;
+  // min-height: 200px!important;
+  // resize: vertical;
+  // overflow: auto;
   color: black;
   word-break: break-all;
 }
+
+.ck.ck-toolbar.ck-toolbar_grouping>.ck-toolbar__items {
+  flex-wrap: wrap!important;
+}
+
+// END OVERRIDE CKEDITOR
+
 // .multiselect__element {
 //   height: $ui-input-height;
 //   .multiselect__option {
@@ -267,4 +281,25 @@ body {
   width: 100px!important;
   font-size: 10px!important;
   margin-right: 8px;
+}
+
+.ellipsis {
+  text-overflow: ellipsis; /* enables ellipsis */
+  white-space: nowrap; /* keeps the text in a single line */
+  overflow: hidden; /* keeps the element from overflowing its parent */
+}
+
+i.fa {
+  -webkit-animation: show 1s 1;
+  /* any other properties to override from FontAwesome's default .fa rule */
+} 
+
+@-webkit-keyframes show {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.trumbowyg-editor-box {
+  resize: vertical;
+  overflow: hidden;
 }

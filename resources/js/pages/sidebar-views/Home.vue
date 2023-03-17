@@ -116,7 +116,7 @@
             v-for="(post, index) in posts"
             @click.self="redirectToPost(post)"
             :key="index"
-            class="grid p-6 gap-6 border border-white bg-bt-secondary rounded-lg cursor-pointer"
+            class="grid p-6 gap-4 border border-white bg-bt-secondary rounded-lg cursor-pointer"
           >
             <div class="flex gap-6">
               <div>
@@ -137,14 +137,10 @@
                 >
               </div>
             </div>
-            <div>
-              <h3 class="font-bold">{{ _.get(post, "title", "") }}</h3>
-            </div>
-            <div class="text-b-dark">
-              <span v-for="(tag, index) in post.tags" :key="index"
-                >{{ _.get(tag, "title", "") }}
-              </span>
-            </div>
+            <h3 @click="redirectToPost(post)" class="font-bold">{{ _.get(post, "title", "") }}</h3>
+            <span v-for="(tag, index) in post.tags" :key="index" class="text-b-dark"
+              >{{ _.get(tag, "title", "") }}
+            </span>
             <div class="flex gap-6">
                 <span>
                     <span>{{ abbreviateNumber(_.filter(_.get(post, 'likes', []), v => v.deleted_at == null).length) }}</span>
@@ -184,7 +180,7 @@
         </div>
         <div
           v-show="post_display_type == POST_DISPLAY_LATEST"
-          class="max-h-[83.5vh] overflow-y-scroll tab-pane fade show active grid gap-6 relative"
+          class="max-h-[83.5vh] overflow-y-scroll tab-pane fade show active grid gap-6 relative cursor-pointer"
           id="latest"
           role="tabpanel"
           aria-labelledby="latest-tab"
@@ -253,7 +249,7 @@
         </div>
         <div
           v-show="post_display_type == POST_DISPLAY_TOP"
-          class="max-h-[83.5vh] overflow-y-scroll tab-pane fade show active grid gap-6 relative"
+          class="max-h-[83.5vh] overflow-y-scroll tab-pane fade show active grid gap-6 relative cursor-pointer"
           id="top"
           role="tabpanel"
           aria-labelledby="latest-tab"
