@@ -11,8 +11,13 @@
           <button type="button" class="h-14 w-full text-b-create bg-white border-2 border-b-create rounded-md">
             <i class="fa-brands fa-facebook mr-3 text-lg"></i>{{ lang.get('words.ContinueWithFacebook') }}
           </button>
-          <button type="button" class="h-14 w-full text-b-info bg-white border-2 border-b-info rounded-md">
-            <i class="fa-brands fa-google mr-3 text-lg"></i>{{ lang.get('words.ContinueWithGoogle') }}
+          <button
+            @click="loginWithGoogle($event)"
+            type="button"
+            class="h-14 w-full text-b-info bg-white border-2 border-b-info rounded-md"
+          >
+            <i class="fa-brands fa-google mr-3 text-lg"></i
+            >{{ lang.get("words.ContinueWithGoogle") }}
           </button>
         </div>
         <p class="horizontal-line text-center">
@@ -315,7 +320,10 @@ export default {
         mutations.setLoading(false)
         //
       })
-    }
+    },
+    loginWithGoogle() {
+      window.location.replace('/api/auth/google');
+    },
   },
   watch: {
       inputName: {

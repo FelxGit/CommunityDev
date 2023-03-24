@@ -7,9 +7,12 @@ use App\Models\User;
 use App\Notifications\ResetPasswordLink;
 use App\Interfaces\UserRepositoryInterface;
 use Exception;
+use Socialite;
 
 class UserService
 {
+    public $repository;
+
     /**
      * @param UserService $service
      * @return void
@@ -43,6 +46,64 @@ class UserService
         }
 
         return response()->json($rtn, 200);
+    }
+
+    /**
+     * Login google user
+     *
+     * @return Array $data
+     */
+    public function loginGoogle()
+    {
+        $data = [];
+
+        try {
+            \DB::beginTransaction();
+
+            $user = null;
+            $g_user = Socialite::driver('google')->stateless()->user();
+            $user = User::where('email', $g_user->email)->first();
+            $existEmailButNotLinked = $user && empty($user->google_id);
+
+            if ($existEmailButNotLinked) {
+                $adjustAttributes = [ 'google_id' => $g_user->id ];
+                $user = $this->repository->adjust($user->id, $adjustAttributes);
+            } else if (empty($user)) {
+                // non existent
+                $attributes = [
+                    'google_id' => $g_user->id,
+                    'role_id' => User::NORMAL_USER,
+                    'email' => $g_user->email,
+                    'username' => $g_user->name,
+                    'password' => \Hash::make(User::PASSWORD_DEFAULT),
+                    'name' => $g_user->name,
+                    'zip_code' => 0000,
+                    'address' => '--',
+                    'tel' => '00000000000',
+                    'email_verified_at' => Carbon::now()
+                ];
+
+                $user = $this->repository->add($attributes);
+            } else {
+                //
+            }
+
+            \Auth::login($user);
+
+            if ($user = \Auth::user()) {
+                $data = [
+                    'token' => $user->createToken('chronoknowledge')->accessToken,
+                    'user' => $user
+                ];
+            }
+
+            \DB::commit();
+        } catch (Exception $e) {
+            \DB::rollback();
+            \Log::error($e->getMessage());
+        }
+
+        return $data;
     }
 
     /**

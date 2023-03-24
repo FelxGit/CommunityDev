@@ -1,6 +1,5 @@
 require('./bootstrap')
 
-import jQuery from 'jquery'
 import Vue from 'vue'
 import App from './pages/App'
 import lang from './config/lang.js'
@@ -8,7 +7,6 @@ import axios from './config/axios.js'
 import router from './config/routes.js'
 import moment from 'moment'
 import vuelidate from 'vuelidate'
-// import trumbowyg from 'trumbowyg'
 
 import { getters, mutations, actions } from "./store";
 
@@ -26,15 +24,30 @@ const app = new Vue({
 
         mutations.setLoading(true)
         let user = localStorage['chronoknowledge.user']? JSON.parse(localStorage['chronoknowledge.user']) : null;
+        const urlParams = new URLSearchParams(window.location.search);
+        const param_userId = urlParams.get('user') ? urlParams.get('user') : null;
+        const param_token = urlParams.get('token') ? urlParams.get('token') : null;
 
         if(user) {
           mutations.setUser(user)
           mutations.setIsLoggedIn(true)
+        } else if (param_userId) {
+
+          this.$http.get('api/users/' + param_userId)
+          .then( function (response) {
+
+            localStorage.setItem('chronoknowledge.jwt', JSON.stringify(param_token));
+            localStorage.setItem('chronoknowledge.user', JSON.stringify(response.data));
+            mutations.setUser(response.data);
+            mutations.setIsLoggedIn(true)
+          })
+          .catch( function (error) {
+            console.log(error);
+          })
         }
 
         this.$http.get('api/language')
         .then( response => {
-            console.log(response.data);
             let source = {
                 'en.words': response.data.messages,
                 'en.auth': response.data.auth,

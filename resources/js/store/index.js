@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import axios from 'axios'
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const state = Vue.observable({
   _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),

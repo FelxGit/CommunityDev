@@ -4,12 +4,21 @@ import axios from 'axios'
 import { getters, mutations, actions } from '../store'
 
 const instance = axios.create({
-    baseURL: appConfig.SERVER_URL
+    baseURL: appConfig.SERVER_URL,
+    headers: {
+      'Authorization' : `Bearer ${(localStorage.getItem('chronoknowledge.jwt') ? JSON.parse(localStorage.getItem('chronoknowledge.jwt')) : '')}`,
+      'Content-Type': 'application/json'
+      }
   })
 
 instance.interceptors.request.use(config => {
-  config.headers['Content-Type'] = 'application/json'
-  config.headers['Authorization'] = 'Bearer ' + (localStorage.getItem('chronoknowledge.jwt') ? JSON.parse(localStorage.getItem('chronoknowledge.jwt')) : '')
+  const urlParams = new URLSearchParams(window.location.search);
+  const param_token = urlParams.get('token') ? urlParams.get('token') : null;
+
+  if (param_token) {
+    config.headers['Content-Type'] = 'application/json'
+    config.headers['Authorization'] = 'Bearer ' + param_token
+  }
 
   // mutations.setLoading(true)
   return config
