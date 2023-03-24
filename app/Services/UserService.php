@@ -64,14 +64,11 @@ class UserService
             $g_user = Socialite::driver('google')->stateless()->user();
             $user = User::where('email', $g_user->email)->first();
             $existEmailButNotLinked = $user && empty($user->google_id);
-            $existEmailAndLinked = $user && $user->google_id;
 
             if ($existEmailButNotLinked) {
                 $adjustAttributes = [ 'google_id' => $g_user->id ];
                 $user = $this->repository->adjust($user->id, $adjustAttributes);
-            } else if ($existEmailAndLinked) {
-                // do nothing
-            } else {
+            } else if (empty($user)) {
                 // non existent
                 $attributes = [
                     'google_id' => $g_user->id,
@@ -87,6 +84,8 @@ class UserService
                 ];
 
                 $user = $this->repository->add($attributes);
+            } else {
+                //
             }
 
             \Auth::login($user);

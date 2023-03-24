@@ -16,7 +16,6 @@ instance.interceptors.request.use(config => {
   const param_token = urlParams.get('token') ? urlParams.get('token') : null;
 
   if (param_token) {
-    console.log(param_token, 'interceptors');
     config.headers['Content-Type'] = 'application/json'
     config.headers['Authorization'] = 'Bearer ' + param_token
   }

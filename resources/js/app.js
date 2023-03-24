@@ -1,6 +1,5 @@
 require('./bootstrap')
 
-import jQuery from 'jquery'
 import Vue from 'vue'
 import App from './pages/App'
 import lang from './config/lang.js'
@@ -8,7 +7,6 @@ import axios from './config/axios.js'
 import router from './config/routes.js'
 import moment from 'moment'
 import vuelidate from 'vuelidate'
-// import trumbowyg from 'trumbowyg'
 
 import { getters, mutations, actions } from "./store";
 
