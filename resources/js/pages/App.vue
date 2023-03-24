@@ -28,21 +28,20 @@
 import Vue from "vue";
 import { getters, mutations, actions } from "../store";
 import TopNav from "../components/main/TopNav.vue";
-import Sidebar from "../components/main/Sidebar.vue"
 import ConfirmationModal from "../components/Confirmation.vue";
-import Multiselect from 'vue-multiselect'
+import Multiselect from "vue-multiselect";
 
 Vue.component("UiButton", require("../components/UiButton.vue").default);
 Vue.component("UiAlert", require("../components/UiAlert.vue").default);
 Vue.component("ErrorInput", require("../components/ErrorInput.vue").default);
 Vue.component("Loading", require("../components/Loading.vue").default);
 Vue.component("ClipLoader", require("vue-spinner/src/ClipLoader.vue").default);
-Vue.component('multiselect', Multiselect);
+Vue.component("multiselect", Multiselect);
 
 export default {
   data() {
     return {
-      param_reset_token: ''
+      param_reset_token: "",
     };
   },
   components: { TopNav, ConfirmationModal },
@@ -50,7 +49,7 @@ export default {
     this.initApp();
   },
   computed: {
-    ...getters
+    ...getters,
   },
   methods: {
     ...mutations,
@@ -73,21 +72,25 @@ export default {
       location.search
         .substr(1)
         .split("&")
-        .forEach( (item) => {
+        .forEach((item) => {
           tmp = item.split("=");
           if (tmp[0] == parameterName) {
-            let reset_password = localStorage["chronoknowledge.reset_password"] ? JSON.parse(localStorage["chronoknowledge.reset_password"]) : null;
+            let reset_password = localStorage["chronoknowledge.reset_password"]
+              ? JSON.parse(localStorage["chronoknowledge.reset_password"])
+              : null;
 
-            if (reset_password && reset_password.reset_token == decodeURIComponent(tmp[1])) {
-
+            if (
+              reset_password &&
+              reset_password.reset_token == decodeURIComponent(tmp[1])
+            ) {
               this.$router.push({
                 name: "reset-password",
-                params: { type: 'reset-password' }
+                params: { type: "reset-password" },
               });
             }
           }
         });
-    }
+    },
   },
 };
 </script>

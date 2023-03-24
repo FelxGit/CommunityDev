@@ -68,7 +68,8 @@
           <label class="grid gap-y-2">
             <span class="font-bold">{{ lang.get('words.PlainDescription') }}  *</span>
           </label>
-          <ckeditor :editor="CKEditor.editor" v-model.trim="$v.form.plain_description.$model"></ckeditor>
+          <textarea id="post" @change="assignTrumbowygDesc" placeholder="I am Trumbowyg"></textarea>
+          <input type="hidden" v-model.trim="$v.form.plain_description.$model" />
           <div class="errors">
             <error-input :name="'plain_description'" :validations="['required']"></error-input>
           </div>
@@ -125,6 +126,43 @@ export default {
   },
   created() {
     this.initData()
+  },
+  mounted() {
+    console.log('mounted', this.trumbowyg)
+    $.noConflict();
+
+    $('#post').trumbowyg({
+        lang: 'en',
+        btnsDef: {
+            image: {
+                dropdown: ['insertImage', 'upload'],
+                ico: 'insertImage'
+            }
+        },
+        btns: this.trumbowyg.default.btns,
+        plugins: {
+            upload: {
+                serverPath: window.location.href + 'api/posts/upload',
+                fileFieldName: this.trumbowyg.upload_type.image,
+                data: [ this.trumbowyg.uploadDataToken() ],
+                urlPropertyName: 'url',
+                headers: this.trumbowyg.default.plugins.upload.headers,
+                error: function (response) {
+                  console.log(response.data);
+                  let alertData = {
+                    showAlert: true,
+                    type: "error",
+                    message: response.responseJSON.errors,
+                  };
+                  console.log(alertData, 'trumbowyg.error()');
+                  mutations.setAlert(alertData);
+                }
+            }
+        }
+    })
+    .on('tbwchange', (event) => {
+      this.form.plain_description = event.target.value;
+    });
   },
   computed: {
     ...getters,
@@ -228,6 +266,10 @@ export default {
     limitText (count) {
       return `+ ${count} more`
     },
+    assignTrumbowygDesc(e) {
+      console.log('assignTrumbowygDesc', e.target.value);
+      this.form.plain_description = e.target.value;
+    }
   },
   watch: {
       inputTitle: {

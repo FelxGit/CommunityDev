@@ -15,7 +15,7 @@
           <div class="rounded-lg bg-bt-secondary px-6 py-4">
               <h3 class="font-bold">{{ _.get(post, 'title', '') }}</h3>
           </div>
-          <div class="bg-bt-secondary rounded-lg p-6">{{ _.get(post, 'plain_description', '') }}</div>
+          <div class="bg-bt-secondary rounded-lg p-6" v-html="_.get(post, 'html_description', '')"></div>
           <div class="text-b-link">
               <span v-for="(tag, index) in post.tags" :key="index">{{ _.get(tag, 'title', '') }} </span>
           </div>
@@ -47,7 +47,7 @@
             <div v-show="isLoadingComment" class="absolute w-full h-full bg-form-overlay z-10"></div>
             <form>
               <div class="grid gap-2">
-                  <ckeditor :editor="CKEditor.editor" v-model.trim="$v.form.description.$model"></ckeditor>
+                <textarea name="editor1" v-model.trim="form.description.$model" placeholder="add multiple lines"></textarea>
               </div>
               <ui-button @click.prevent="submitComment" :type="'create'" :size="'full'" :withLoading="isLoadingComment" :disabled="anyError" class="text-white mt-2">
                 <span class="font-bold">{{ lang.get('words.Submit') }}</span>

@@ -24,16 +24,15 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
  });
 
 mix.setPublicPath('public');
+mix.copyDirectory('node_modules/trumbowyg/plugins/upload', 'public/assets/trumbowyg/plugins/upload');
+mix.copyDirectory('node_modules/trumbowyg/plugins/pasteimage', 'public/assets/trumbowyg/plugins/pasteimage');
+mix.copyDirectory('node_modules/trumbowyg/plugins/base64', 'public/assets/trumbowyg/plugins/base64');
+mix.copyDirectory('node_modules/trumbowyg/plugins/pasteembed', 'public/assets/trumbowyg/plugins/pasteembed');
+mix.copyDirectory('node_modules/trumbowyg/plugins/resizimg', 'public/assets/trumbowyg/plugins/resizimg');
+mix.copyDirectory('node_modules/trumbowyg/plugins/fontsize', 'public/assets/trumbowyg/plugins/fontsize');
+mix.copyDirectory('node_modules/trumbowyg/plugins/fontfamily', 'public/assets/trumbowyg/plugins/fontfamily');
+mix.copyDirectory('node_modules/trumbowyg/plugins/colors', 'public/assets/trumbowyg/plugins/colors');
 
-// mix.copyDirectory('node_modules/admin-lte/plugins/ekko-lightbox', 'public/assets/admin-lte/plugins/ekko-lightbox');
-// mix.copyDirectory('node_modules/admin-lte/plugins/moment', 'public/assets/admin-lte/plugins/moment');
-// mix.copyDirectory('node_modules/admin-lte/plugins/icheck-bootstrap', 'public/assets/admin-lte/plugins/icheck-bootstrap');
-// mix.copyDirectory('node_modules/admin-lte/plugins/select2', 'public/assets/admin-lte/plugins/select2');
-// mix.copyDirectory('node_modules/admin-lte/plugins/select2-bootstrap4-theme', 'public/assets/admin-lte/plugins/select2-bootstrap4-theme');
-// mix.copyDirectory('node_modules/admin-lte/plugins/bootstrap-switch', 'public/assets/admin-lte/plugins/bootstrap-switch');
-// mix.copyDirectory('node_modules/admin-lte/plugins/summernote', 'public/assets/admin-lte/plugins/summernote');
-// mix.copyDirectory('node_modules/admin-lte/plugins/jquery', 'public/assets/admin-lte/plugins/jquery');
-// mix.copyDirectory('node_modules/tempusdominus-bootstrap-4/build', 'public/assets/tempusdominus-bootstrap-4');
 
 mix.js('resources/js/app.js', 'public/js').vue()
    .sass('resources/sass/app.scss', 'public/css');

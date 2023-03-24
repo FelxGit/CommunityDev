@@ -152,22 +152,21 @@
                 src="../../../assets/icons/user-logo.png"
                 alt="Jese image"
               />
-              <span class="mx-auto sm:mx-0 sm:ml-4 text-b-info capitalize">{{
+              <span class="ellipsis w-[100px] mx-auto sm:mx-0 sm:ml-4 text-b-info capitalize">{{
                 _.get(user, "name")
               }}</span>
             </button>
 
             <!-- Dropdown menu -->
             <div
-              class="hidden z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
+              class="hidden w-[250px] z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600"
               id="user-dropdown"
             >
               <div class="py-3 px-6">
-                <span class="block text-sm text-gray-900 dark:text-white capitalize">{{
+                <span class="block ellipsis block text-sm font-medium text-gray-500 truncate dark:text-gray-400 text-sm text-gray-900 dark:text-white capitalize">{{
                   _.get(user, "name")
                 }}</span>
-                <span
-                  class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400"
+                <span class="block ellipsis text-sm font-medium text-gray-500 truncate dark:text-gray-400"
                   >{{ _.get(user, "email") }}</span
                 >
               </div>

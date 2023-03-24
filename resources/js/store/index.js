@@ -2,6 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 const state = Vue.observable({
+  _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
   user: null,
   isLoggedIn: false,
   loading: false,
@@ -26,6 +27,46 @@ const state = Vue.observable({
       'by-page' // 1
     ]
   },
+  trumbowyg: {
+    upload_type: {
+      image : 'image'
+    },
+    default: {
+        btnsDef: {
+            image: {
+                dropdown: ['insertImage', 'upload'],
+                ico: 'insertImage'
+            }
+        },
+        btns: [
+            ['viewHTML'],
+            ['undo', 'redo'],
+            ['formatting'],
+            ['strong', 'em', 'del'],
+            ['foreColor', 'backColor', 'fontsize', 'fontfamily', 'highlight'],
+            ['emoji'],
+            ['superscript', 'subscript'],
+            ['link'],
+            ['image'],
+            ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+            ['unorderedList', 'orderedList'],
+            ['horizontalRule'],
+            ['removeformat'],
+            ['fullscreen']
+        ],
+        plugins: {
+          // Add imagur parameters to upload plugin for demo purposes
+          upload: {
+              headers: {
+                  'Authorization': 'Bearer ' + (localStorage.getItem('chronoknowledge.jwt') ? JSON.parse(localStorage.getItem('chronoknowledge.jwt')) : '')
+              }
+          }
+      }
+    },
+    uploadDataToken: () => {
+      return {name: '_token', value: state._token};
+    }
+  },
   select: {
     height: '9.375' //px
   }
@@ -40,7 +81,8 @@ export const getters = {
     loader: () => state.loader,
     user: () => state.user,
     isLoggedIn: () => state.isLoggedIn,
-    CKEditor: () => state.CKEditor
+    CKEditor: () => state.CKEditor,
+    trumbowyg: () => state.trumbowyg
 }
 
 export const mutations = {
