@@ -19,6 +19,7 @@
             >{{ lang.get("words.ContinueWithFacebook") }}
           </button>
           <button
+            @click="loginWithGoogle($event)"
             type="button"
             class="h-14 w-full text-b-info bg-white border-2 border-b-info rounded-md"
           >
@@ -90,6 +91,7 @@
 </template>
 <script>
 import Vue from "vue";
+import appConfig from '../../config/app.env'
 import { getters, mutations, actions } from "../../store";
 import { required, minLength, maxLength, sameAs, email, helpers } from "vuelidate/lib/validators";
 
@@ -145,6 +147,9 @@ export default {
   methods: {
     ...mutations,
     ...actions,
+    loginWithGoogle() {
+      window.location.replace('/api/auth/google');
+    },
     submit() {
       mutations.setLoading(true);
       this.errors = null;

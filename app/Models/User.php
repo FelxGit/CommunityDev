@@ -22,6 +22,7 @@ class User extends \TCG\Voyager\Models\User
      */
     protected $fillable = [
         'role_id',
+        'google_id',
         'email',
         'username',
         'password',
@@ -45,6 +46,8 @@ class User extends \TCG\Voyager\Models\User
 
     const ADMIN_USER = 1;
     const NORMAL_USER = 2;
+
+    const PASSWORD_DEFAULT = 'password';
 
     /**
      * The attributes that should be hidden for arrays.

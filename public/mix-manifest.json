@@ -1,4 +1,18 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/assets/trumbowyg/plugins/upload/trumbowyg.upload.js": "/assets/trumbowyg/plugins/upload/trumbowyg.upload.js",
+    "/assets/trumbowyg/plugins/upload/ui/icons/upload.svg": "/assets/trumbowyg/plugins/upload/ui/icons/upload.svg",
+    "/assets/trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js": "/assets/trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js",
+    "/assets/trumbowyg/plugins/base64/trumbowyg.base64.js": "/assets/trumbowyg/plugins/base64/trumbowyg.base64.js",
+    "/assets/trumbowyg/plugins/base64/ui/icons/base64.svg": "/assets/trumbowyg/plugins/base64/ui/icons/base64.svg",
+    "/assets/trumbowyg/plugins/pasteembed/trumbowyg.pasteembed.js": "/assets/trumbowyg/plugins/pasteembed/trumbowyg.pasteembed.js",
+    "/assets/trumbowyg/plugins/resizimg/trumbowyg.resizimg.js": "/assets/trumbowyg/plugins/resizimg/trumbowyg.resizimg.js",
+    "/assets/trumbowyg/plugins/fontsize/trumbowyg.fontsize.js": "/assets/trumbowyg/plugins/fontsize/trumbowyg.fontsize.js",
+    "/assets/trumbowyg/plugins/fontsize/ui/icons/fontsize.svg": "/assets/trumbowyg/plugins/fontsize/ui/icons/fontsize.svg",
+    "/assets/trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js": "/assets/trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js",
+    "/assets/trumbowyg/plugins/colors/trumbowyg.colors.js": "/assets/trumbowyg/plugins/colors/trumbowyg.colors.js",
+    "/assets/trumbowyg/plugins/colors/ui/icons/back-color.svg": "/assets/trumbowyg/plugins/colors/ui/icons/back-color.svg",
+    "/assets/trumbowyg/plugins/colors/ui/icons/fore-color.svg": "/assets/trumbowyg/plugins/colors/ui/icons/fore-color.svg",
+    "/assets/trumbowyg/plugins/colors/ui/sass/trumbowyg.colors.scss": "/assets/trumbowyg/plugins/colors/ui/sass/trumbowyg.colors.scss"
 }

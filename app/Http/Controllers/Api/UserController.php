@@ -20,6 +20,15 @@ class UserController extends Controller
     }
 
     /**
+     * @param User $user
+     * @return JSON $user
+     */
+    public function show(User $user)
+    {
+        return response()->json($user);
+    }
+
+    /**
      * @param Reqeust $request
      * @return JSON $rtn
      */

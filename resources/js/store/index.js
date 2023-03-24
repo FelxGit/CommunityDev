@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import axios from 'axios'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 const state = Vue.observable({
   user: null,
@@ -26,11 +25,6 @@ const state = Vue.observable({
       'by-task', // 0
       'by-page' // 1
     ]
-  },
-  CKEditor: {
-    config: {
-    },
-    editor: ClassicEditor
   },
   select: {
     height: '9.375' //px

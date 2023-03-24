@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
 Route::group(['namespace' => 'Api' ], function () {
     Route::post('login', 'UserController@login')->name('login');
     Route::post('register', 'UserController@register')->name('register');
@@ -20,6 +21,9 @@ Route::group(['namespace' => 'Api' ], function () {
     Route::get('categories', 'CategoryController@index');
     Route::get('tags', 'TagController@index');
     Route::get('posts', 'PostController@index');
+
+    Route::get('auth/google', 'GoogleController@redirectToGoogle');
+    Route::get('auth/google/callback', 'GoogleController@handleGoogleCallback');
 
     Route::get('language', function () {
         return response()->json([
@@ -31,6 +35,7 @@ Route::group(['namespace' => 'Api' ], function () {
 });
 
 Route::group(['middleware' => 'auth:api', 'namespace' => 'Api'], function() {
+    Route::get('users/{user}', 'UserController@show');
     Route::post('posts', 'PostController@store');
     Route::get('posts/{id}', 'PostController@show');
 

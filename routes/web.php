@@ -15,8 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('module');
-});
-
+})->name('landing-page');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Voyager::routes();
