@@ -7,6 +7,7 @@ const state = Vue.observable({
   isLoggedIn: false,
   loading: false,
   lang: null,
+  windowOpen: null,
   alert: {
     showAlert: false,
     type: 'info',
@@ -82,7 +83,8 @@ export const getters = {
     user: () => state.user,
     isLoggedIn: () => state.isLoggedIn,
     CKEditor: () => state.CKEditor,
-    trumbowyg: () => state.trumbowyg
+    trumbowyg: () => state.trumbowyg,
+    windowOpen: () => state.windowOpen
 }
 
 export const mutations = {
@@ -90,6 +92,7 @@ export const mutations = {
     setIsLoggedIn: (val) => state.isLoggedIn = val,
     setLoading: (val) => state.loading = val,
     setLang: (lang) => state.lang = lang,
+    setWindowOpen: (val) => state.windowOpen = val,
     setAlert: (data) => {
       if(_.get(data, 'showAlert')) state.alert.showAlert = data.showAlert
       if(_.get(data, 'type')) state.alert.type = data.type

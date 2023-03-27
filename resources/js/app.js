@@ -23,6 +23,8 @@ const app = new Vue({
     created: function () {
 
         mutations.setLoading(true)
+
+        // Auth
         let user = localStorage['chronoknowledge.user']? JSON.parse(localStorage['chronoknowledge.user']) : null;
         const urlParams = new URLSearchParams(window.location.search);
         const param_userId = urlParams.get('user') ? urlParams.get('user') : null;
@@ -34,17 +36,20 @@ const app = new Vue({
         } else if (param_userId) {
 
           this.$http.get('api/users/' + param_userId)
-          .then( function (response) {
+          .then((response) => {
 
             localStorage.setItem('chronoknowledge.jwt', JSON.stringify(param_token));
             localStorage.setItem('chronoknowledge.user', JSON.stringify(response.data));
-            mutations.setUser(response.data);
-            mutations.setIsLoggedIn(true)
+
+            // assuming current is login popup window
+            window.close();
           })
           .catch( function (error) {
             console.log(error);
           })
         }
+
+        // language
 
         this.$http.get('api/language')
         .then( response => {

@@ -148,7 +148,6 @@ export default {
         tabscontent.scroll(() => {
             let bottomOfWindow = tabscontent.scrollTop() + window.innerHeight  > tabscontent.prop('scrollHeight');
             if (bottomOfWindow && !this.isLoadingPost) {
-                console.log('hello');
                 this.isLazyLoaded = true;
                 this.getPosts()
             }

@@ -25,6 +25,9 @@ Route::group(['namespace' => 'Api' ], function () {
     Route::get('auth/google', 'GoogleController@redirectToGoogle');
     Route::get('auth/google/callback', 'GoogleController@handleGoogleCallback');
 
+    Route::get('auth/facebook', 'FacebookController@redirectToFacebook');
+    Route::get('auth/facebook/callback', 'FacebookController@handleFacebookCallback');
+
     Route::get('language', function () {
         return response()->json([
             'auth' => \Lang::get('auth'),
