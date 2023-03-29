@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('module');
 })->name('landing-page');
 
+Route::fallback(function () {
+    return view('module');
+});
+
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Voyager::routes();
     // Route::get('/categories','CategoryController@category');

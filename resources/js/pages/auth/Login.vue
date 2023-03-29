@@ -91,7 +91,6 @@
 </template>
 <script>
 import Vue from "vue";
-import appConfig from '../../config/app.env'
 import { getters, mutations, actions } from "../../store";
 import { required, minLength, maxLength, sameAs, email, helpers } from "vuelidate/lib/validators";
 
@@ -148,7 +147,36 @@ export default {
     ...mutations,
     ...actions,
     loginWithGoogle() {
-      window.location.replace('/api/auth/google');
+      let win = window.open(this.appConfig.SERVER_URL + '/api/auth/google', "SignIn", "width=780,height=410,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0,left=" + 500 + ",top=" + 200);
+      var timer = setInterval(function() {
+          if(win.closed) {
+              clearInterval(timer);
+              window.location = '/'
+          }
+      }, 1000);
+    },
+    loginWithFacebook() {
+      let win = window.open(this.appConfig.SERVER_URL + '/api/auth/facebook', "SignIn", "width=780,height=410,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0,left=" + 500 + ",top=" + 200);
+      var timer = setInterval(function() {
+          if(win.closed) {
+              clearInterval(timer);
+              window.location = '/'
+          }
+      }, 1000);
+      // window.location.replace('/api/auth/facebook')
+
+      // facebook creates pop up window for login
+      // works only for https
+      // FB.login(function(response) {
+      //     if (response.authResponse) {
+      //     console.log('Welcome!  Fetching your information.... ');
+      //     FB.api('/api/auth/facebook', function(response) {
+      //       console.log('Good to see you, ' + response.name + '.');
+      //     });
+      //     } else {
+      //     console.log('User cancelled login or did not fully authorize.');
+      //     }
+      // });
     },
     submit() {
       mutations.setLoading(true);

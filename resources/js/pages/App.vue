@@ -4,7 +4,7 @@
     <main>
       <router-view></router-view>
     </main>
-    <!-- <footer></footer> -->
+    <CommunityFooter></CommunityFooter>
 
     <!-- Modals -->
 
@@ -20,7 +20,7 @@
       {{ alert.message }}
     </ui-alert>
 
-    <loading v-show="loading" :type="loader.type[1]" :withLoading="true"></loading>
+    <loading v-show="loading" :type="loader.type.isByPage" :withLoading="true"></loading>
   </div>
 </template>
 
@@ -28,6 +28,7 @@
 import Vue from "vue";
 import { getters, mutations, actions } from "../store";
 import TopNav from "../components/main/TopNav.vue";
+import CommunityFooter from "../components/main/Footer.vue";
 import ConfirmationModal from "../components/Confirmation.vue";
 import Multiselect from "vue-multiselect";
 
@@ -44,7 +45,7 @@ export default {
       param_reset_token: "",
     };
   },
-  components: { TopNav, ConfirmationModal },
+  components: { TopNav, ConfirmationModal, CommunityFooter },
   beforeMount() {
     this.initApp();
   },
@@ -94,3 +95,8 @@ export default {
   },
 };
 </script>
+<style scoped lang="scss">
+main {
+  min-height: 100vh;
+}
+</style>

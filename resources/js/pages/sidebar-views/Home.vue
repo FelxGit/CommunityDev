@@ -138,9 +138,11 @@
               </div>
             </div>
             <h3 @click="redirectToPost(post)" class="font-bold">{{ _.get(post, "title", "") }}</h3>
-            <span v-for="(tag, index) in post.tags" :key="index" class="text-b-dark"
-              >{{ _.get(tag, "title", "") }}
-            </span>
+            <p @click="redirectToPost(post)" class="text-b-dark">
+              <span v-for="(tag, index) in post.tags" :key="index"
+                >{{ _.get(tag, "title", "") }}
+              </span>
+            </p>
             <div class="flex gap-6">
                 <span>
                     <span>{{ abbreviateNumber(_.filter(_.get(post, 'likes', []), v => v.deleted_at == null).length) }}</span>
@@ -213,14 +215,12 @@
                 >
               </div>
             </div>
-            <div>
-              <h3 class="font-bold">{{ _.get(post, "title", "") }}</h3>
-            </div>
-            <div class="text-b-dark">
+            <h3 @click="redirectToPost(post)" class="font-bold">{{ _.get(post, "title", "") }}</h3>
+            <p class="text-b-dark">
               <span v-for="(tag, index) in post.tags" :key="index"
                 >{{ _.get(tag, "title", "") }}
               </span>
-            </div>
+            </p>
             <div class="flex gap-6">
               <span
                 @click="likeUnlikePost($event, post.likes, post.id)"
@@ -278,14 +278,12 @@
                 >
               </div>
             </div>
-            <div>
-              <h3 class="font-bold">{{ _.get(post, "title", "") }}</h3>
-            </div>
-            <div class="text-b-dark">
+            <h3 @click="redirectToPost(post)" class="font-bold">{{ _.get(post, "title", "") }}</h3>
+            <p class="text-b-dark">
               <span v-for="(tag, index) in post.tags" :key="index"
                 >{{ _.get(tag, "title", "") }}
               </span>
-            </div>
+            </p>
             <div class="flex gap-6">
               <span
                 @click="likeUnlikePost($event, post.likes, post.id)"

@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+import appConfig from '../config/app.env'
 
 const state = Vue.observable({
   _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -22,10 +23,10 @@ const state = Vue.observable({
       btPrimary: 'rgb(24, 25, 26)'
     },
     size: '24px',
-    type: [
-      'by-task', // 0
-      'by-page' // 1
-    ]
+    type: {
+      isByTask : 'by-task',
+      isByPage : 'by-page'
+    }
   },
   trumbowyg: {
     upload_type: {
@@ -82,7 +83,8 @@ export const getters = {
     user: () => state.user,
     isLoggedIn: () => state.isLoggedIn,
     CKEditor: () => state.CKEditor,
-    trumbowyg: () => state.trumbowyg
+    trumbowyg: () => state.trumbowyg,
+    appConfig: () => appConfig,
 }
 
 export const mutations = {

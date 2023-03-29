@@ -8,8 +8,13 @@
         </h3>
         <p class="text-center">{{ lang.get('words.WelcomeToChronoCommunity') }}</p>
         <div class="grid justify-center grid grid-cols-1 gap-6 my-10">
-          <button type="button" class="h-14 w-full text-b-create bg-white border-2 border-b-create rounded-md">
-            <i class="fa-brands fa-facebook mr-3 text-lg"></i>{{ lang.get('words.ContinueWithFacebook') }}
+          <button
+            @click="loginWithFacebook($event)"
+            type="button"
+            class="h-14 w-full text-b-create bg-white border-2 border-b-create rounded-md"
+          >
+            <i class="fa-brands fa-facebook mr-3 text-lg"></i
+            >{{ lang.get("words.ContinueWithFacebook") }}
           </button>
           <button
             @click="loginWithGoogle($event)"
@@ -322,7 +327,22 @@ export default {
       })
     },
     loginWithGoogle() {
-      window.location.replace('/api/auth/google');
+      let win = window.open(this.appConfig.SERVER_URL + '/api/auth/google', "SignIn", "width=780,height=410,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0,left=" + 500 + ",top=" + 200);
+      var timer = setInterval(function() {
+          if(win.closed) {
+              clearInterval(timer);
+              window.location = '/'
+          }
+      }, 1000);
+    },
+    loginWithFacebook() {
+      let win = window.open(this.appConfig.SERVER_URL + '/api/auth/facebook', "SignIn", "width=780,height=410,toolbar=0,scrollbars=0,status=0,resizable=0,location=0,menuBar=0,left=" + 500 + ",top=" + 200);
+      var timer = setInterval(function() {
+          if(win.closed) {
+              clearInterval(timer);
+              window.location = '/'
+          }
+      }, 1000);
     },
   },
   watch: {

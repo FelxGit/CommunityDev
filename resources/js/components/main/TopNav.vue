@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="bg-bt-secondary border-gray-200 px-6 sm:px-4 md:px-20 py-2.5 rounded dark:bg-gray-900 relative"
+    class="top-nav bg-bt-secondary border-gray-200 px-6 sm:px-4 md:px-20 py-2.5 rounded dark:bg-gray-900 relative"
   >
     <div class="flex flex-wrap justify-between md:justify-start gap-6 items-center mx-0">
       <router-link :to="{ name: 'landing-page' }" class="flex items-center">
@@ -152,9 +152,10 @@
                 src="../../../assets/icons/user-logo.png"
                 alt="Jese image"
               />
-              <span class="ellipsis w-[100px] mx-auto sm:mx-0 sm:ml-4 text-b-info capitalize">{{
-                _.get(user, "name")
-              }}</span>
+              <span
+                class="ellipsis w-[100px] mx-auto sm:mx-0 sm:ml-4 text-b-info capitalize"
+                >{{ _.get(user, "name") }}</span
+              >
             </button>
 
             <!-- Dropdown menu -->
@@ -163,10 +164,12 @@
               id="user-dropdown"
             >
               <div class="py-3 px-6">
-                <span class="block ellipsis block text-sm font-medium text-gray-500 truncate dark:text-gray-400 text-sm text-gray-900 dark:text-white capitalize">{{
-                  _.get(user, "name")
-                }}</span>
-                <span class="block ellipsis text-sm font-medium text-gray-500 truncate dark:text-gray-400"
+                <span
+                  class="block ellipsis block text-sm font-medium text-gray-500 truncate dark:text-gray-400 text-sm text-gray-900 dark:text-white capitalize"
+                  >{{ _.get(user, "name") }}</span
+                >
+                <span
+                  class="block ellipsis text-sm font-medium text-gray-500 truncate dark:text-gray-400"
                   >{{ _.get(user, "email") }}</span
                 >
               </div>
@@ -198,7 +201,7 @@
 import { getters, mutations } from "../../store";
 import { required, minLength, sameAs, email, helpers } from "vuelidate/lib/validators";
 
-import Notification from '../Notification.vue'
+import Notification from "../Notification.vue";
 
 export default {
   name: "top-nav",
@@ -218,7 +221,7 @@ export default {
       mutations.setIsLoggedIn(false);
       document.getElementById("user-dropdown").classList.add("hidden");
       this.$router.push("/");
-    }
+    },
   },
   computed: {
     ...getters,
@@ -230,65 +233,8 @@ export default {
 @import "../../../sass/imports";
 
 .top-nav {
-  position: absolute;
+  position: sticky;
   top: 0px;
-  width: 100%;
-  height: 5rem;
-  padding: 0.5rem 2rem;
-  z-index: $z-index-nav-drawer;
-  background-color: $brand-theme-color-secondary;
-
-  .nav-content {
-    height: 100%;
-    display: flex;
-    grid-gap: $base-gap;
-
-    .nav-menu {
-      display: flex;
-      grid-gap: $base-gap;
-
-      .ck-logo {
-        height: 3.5rem;
-        margin: auto 0;
-      }
-      .ck-search {
-        display: grid;
-        align-items: center;
-      }
-    }
-
-    .nav-links {
-      flex-grow: 1;
-      display: flex;
-      flex-flow: row-reverse;
-
-      & > div {
-        display: flex;
-        align-items: center;
-        grid-gap: $base-gap;
-      }
-
-      .profile {
-        display: flex;
-        align-items: center;
-        grid-gap: $base-gap;
-      }
-
-      .notif-bell {
-        background-color: rgba(244, 67, 54);
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        font-size: 10px;
-        line-height: 1.3;
-        top: 4px;
-        right: -2px;
-      }
-    }
-  }
-
-  .nav-content > div {
-    height: 100%;
-  }
+  z-index: $z-index-level-1;
 }
 </style>

@@ -18,6 +18,7 @@ const routes = [
       ...postRoutes
     ]
   },
+  ...SidebarRoutes,
   ...authRoutes,
   ...postRoutes
 ];
