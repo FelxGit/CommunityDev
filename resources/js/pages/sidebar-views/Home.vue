@@ -1,6 +1,6 @@
 <template>
-  <div class="homeComponent" :style="[isLoggedIn ? landingLoggedInStyle : '']">
-    <div v-show="!isLoggedIn" class="about">
+  <div class="homeClass" :style="[ isMobile ? homeMobileStyle : homeStyle ]">
+    <div v-show="!isLoggedIn && !isMobile" class="about">
       <h3 class="font-bold leadinng-8">
         <span class="text-b-info">{{ lang.get("words.Chronostep") }}</span>
         <span class="text-b-create">{{ lang.get("words.Community") }}</span>
@@ -312,7 +312,7 @@
         </div>
       </div>
     </div>
-    <div class="category">
+    <div v-show="!isMobile" class="category">
       <div class="grid grid-cols-1 gap-6">
         <h4 class="font-bold text-b-mute">{{ lang.get("words.Category") }}</h4>
         <ul class="category-list ml-2">
@@ -331,7 +331,7 @@
         </ul>
       </div>
     </div>
-    <div v-show="!isLoggedIn" class="app">
+    <div v-show="!isLoggedIn && !isMobile" class="app">
       <div class="bg-white p-6 rounded-lg text-black">
         <div>
           <h3 class="font-bold">{{ lang.get("words.MobileApplication") }}</h3>
@@ -362,7 +362,7 @@
         </div>
       </div>
     </div>
-    <div class="popular">
+    <div v-show="!isMobile" class="popular">
       <div class="grid grid-cols-1 gap-6">
         <h4 class="font-bold text-b-mute">{{ lang.get("words.PopularTags") }}</h4>
         <ul class="popular-list ml-2">
@@ -379,7 +379,7 @@
 
 <script>
 import { getters, mutations, actions } from "../../store";
-import PostForm from "../posts/PostForm.vue";
+import PostForm from "../../components/PostForm.vue";
 
 export default {
   components: { PostForm },
@@ -655,12 +655,51 @@ export default {
   },
   computed: {
     ...getters,
-    landingLoggedInStyle() {
-      return {
-        "grid-template-areas": `'posts posts category''posts posts popular'`,
+    homeStyle() {
+// "grid-template-areas": `'posts posts category''posts posts popular'`,
+//         "background-color": "none",
+//         padding: "0",
+//       };
+//     },
+//     landingMobile() {
+//       return {
+//         "grid-template-areas": `'posts'`,
+//         "background-color": "none",
+//         padding: "0",
+//       };
+
+// grid-template-areas:
+//     "about posts posts category"
+//     "app posts posts popular";
+//   grid-template-rows: 1fr 1fr;
+//   grid-template-columns: 1fr 2fr 1fr;
+      console.log('homeStyle');
+      let homeStyle = {
+        "grid-template-areas": `"about posts posts category" "app posts posts popular"`,
+        "grid-template-rows": "1fr 1fr",
+        "grid-template-columns": "1fr 2fr 1fr",
         "background-color": "none",
-        padding: "0",
-      };
+        "padding": "0"
+      }
+
+      if (this.isLoggedIn) {
+        console.log('isLoggeddiN')
+        homeStyle['grid-template-areas'] = `'posts posts category''posts posts popular'`;
+      }
+      console.log(homeStyle)
+      return homeStyle;
+    },
+    homeMobileStyle() {
+      console.log('homeMobileStyle');
+      let homeStyle = {
+        "grid-template-areas": `'posts'`,
+        "grid-template-rows": "auto",
+        "grid-template-columns": "auto",
+        "margin": "1.5rem 1.5rem 0rem 1.5rem",
+        "background-color": "none",
+        "padding": "0"
+      }
+      return homeStyle;
     }
   },
   watch: {
@@ -674,14 +713,8 @@ export default {
 </script>
 <style scoped lang="scss">
 @import "../../../sass/imports";
-
-.homeComponent {
+.homeClass {
   display: grid;
-  grid-template-areas:
-    "about posts posts category"
-    "app posts posts popular";
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 2fr 1fr;
   grid-gap: $base-comp-gap-y;
   margin: $base-comp-gap-y $base-comp-gap-x 0rem $base-comp-gap-y;
   // height: 100vh;

@@ -1,5 +1,5 @@
 <template>
-  <footer class="main-footer full mod">
+  <footer id="main-footer" :class="[ footerStyle ]">
 		<div class="sleeve">
 			<div class="footer-logo">
 				<a href="#">
@@ -40,7 +40,7 @@
                         </ul>
                     </div>
                 </div>
-				<div class="column address">
+				<div class="column">
 					<p class="nav-title">Address</p>
 					<address>
 						<p>
@@ -71,10 +71,42 @@
 		</div>
 	</footer>
 </template>
+<script>
+import { getters, mutations, actions } from "../../store";
+
+export default {
+    data() {
+      return {
+        //
+      };
+    },
+    methods: {
+        ...mutations,
+    },
+    computed: {
+        ...getters,
+        footerStyle() {
+            console.log('footerStyle')
+            let footerStyle = {
+                "full mod" : true
+            }
+
+            if (this.isMobile) {
+                footerStyle['main-footer-mobile'] = true
+            } else {
+                footerStyle['main-footer'] = true
+            }
+            console.log(footerStyle)
+            return footerStyle
+        }
+    }
+}
+</script>
+
 <style scoped lang="scss">
 @import '../../../sass/imports';
 
-.journey .main-footer {
+.journey #main-footer {
     background: $brand-theme-color-secondary;
 }
 .main-footer {
@@ -84,33 +116,37 @@
     position: relative;
     z-index: $z-index-level-1;
 }
+.main-footer-mobile {
+    width: 100%;
+    padding: $base-gap;
+    background-color: black;
+    position: relative;
+    z-index: $z-index-level-1;
+}
 .full {
     width: 100%;
     margin: 0 auto;
 }
-.journey .main-footer>.sleeve {
+.journey #main-footer>.sleeve {
     border: 0;
     margin: 0 auto;
     padding: 60px 0;
 }
-.main-footer .footer-logo {
+#main-footer .footer-logo {
     display: grid;
     grid-gap: $base-gap;
     color: $brand-mute
 }
-.main-footer .nav {
+#main-footer .nav {
     flex: 0 1 720px;
     display: flex;
     flex-wrap: wrap;
 }
-.main-footer .nav .column {
+#main-footer .nav .column {
     margin-right: 12%;
     padding: 20px 0 0;
-    -ms-flex: 0 0 auto;
-    -webkit-flex: 0 0 auto;
-    flex: 0 0 auto;
 }
-.main-footer .nav .nav-title {
+#main-footer .nav .nav-title {
     margin: 0 0 18px;
     color: $brand-mute;
     font-family: "Gotham A","Gotham B";
@@ -118,14 +154,14 @@
     line-height: 24px;
     font-weight: 500;
 }
-.main-footer .nav li {
+#main-footer .nav li {
     font-size: 13px;
     line-height: 23px;
 }
-.journey .main-footer .nav li a {
+.journey #main-footer .nav li a {
     border-bottom-color: #E2E2E2;
 }
-.main-footer .nav li a {
+#main-footer .nav li a {
     border: 0;
     border-bottom: 1px solid #FAF9FA;
     color: #868686;
@@ -136,33 +172,33 @@
     -webkit-transition: -webkit-all .2s;
     transition: all .2s;
 }
-.main-footer .nav .column.social li {
+#main-footer .nav .column.social li {
     display: block;
 }
-.main-footer .nav .column.social li span {
+#main-footer .nav .column.social li span {
     width: 18px;
     margin-right: 8px;
     display: inline-block;
     text-align: center;
 }
-.main-footer .nav .column.social .twitter img {
+#main-footer .nav .column.social .twitter img {
     width: 17px;
     height: 14px;
     margin-bottom: -2px;
 }
-.main-footer .nav .column.social .facebook img {
+#main-footer .nav .column.social .facebook img {
     width: 7px;
     height: 16px;
     margin-bottom: -3px;
 }
-.main-footer .nav .column.social .linkedin img {
+#main-footer .nav .column.social .linkedin img {
     width: 14px;
     height: 13px;
 }
-.main-footer .nav .column.social li a {
+#main-footer .nav .column.social li a {
     font-weight: 500;
 }
-.main-footer .footer-logo img {
+#main-footer .footer-logo img {
     display: block;
     max-width: 124px;
     max-height: 44px;

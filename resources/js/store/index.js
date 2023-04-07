@@ -66,7 +66,7 @@ const state = Vue.observable({
     },
     uploadDataToken: () => {
       return {name: '_token', value: state._token};
-    }
+    },
   },
   select: {
     height: '9.375' //px
@@ -85,6 +85,7 @@ export const getters = {
     CKEditor: () => state.CKEditor,
     trumbowyg: () => state.trumbowyg,
     appConfig: () => appConfig,
+    isMobile: () => window.innerWidth <= 1200
 }
 
 export const mutations = {

@@ -5,7 +5,7 @@
       <router-view></router-view>
     </main>
     <CommunityFooter></CommunityFooter>
-
+    <TabBar v-show="isMobile"></TabBar>
     <!-- Modals -->
 
     <!-- Pop ups -->
@@ -29,6 +29,7 @@ import Vue from "vue";
 import { getters, mutations, actions } from "../store";
 import TopNav from "../components/main/TopNav.vue";
 import CommunityFooter from "../components/main/Footer.vue";
+import TabBar from "../components/main/TabBar.vue";
 import ConfirmationModal from "../components/Confirmation.vue";
 import Multiselect from "vue-multiselect";
 
@@ -45,7 +46,7 @@ export default {
       param_reset_token: "",
     };
   },
-  components: { TopNav, ConfirmationModal, CommunityFooter },
+  components: { TopNav, ConfirmationModal, CommunityFooter, TabBar },
   beforeMount() {
     this.initApp();
   },

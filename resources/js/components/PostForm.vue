@@ -83,7 +83,7 @@
 </template>
 <script>
 import Vue from "vue";
-import { getters, mutations, actions } from "../../store";
+import { getters, mutations, actions } from "../store";
 import { required, minLength, maxLength, sameAs, email, helpers } from 'vuelidate/lib/validators'
 
 export default {
@@ -307,7 +307,7 @@ export default {
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style scoped lang="scss">
-@import '../../../sass/imports';
+@import '../../sass/imports';
   .border-b-input {
     border: thin solid $brand-bg-input;
   }

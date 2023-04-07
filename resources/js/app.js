@@ -62,19 +62,15 @@ const app = new Vue({
         })
 
         router.beforeEach((to, from, next) => {
-
+            // if route is set to require authentication, redirect to login
             if (to.matched.some(record => record.meta.requiresAuth)) {
-              // this route requires auth, check if logged in
-              // if not, redirect to login page.
               if (this.user)
                 next()
               else
                 next({ name: 'login' })
 
             } else {
-              let noAuthExcept = (to.name == 'login' || to.name == 'register') && !this._.isEmpty(this.user);
-
-              if (noAuthExcept)
+              if (!this._.isEmpty(this.user) && to.name.includes(['login', 'register']))
                 next({ name: 'landing-page' })
               else
                 next()

@@ -1,10 +1,10 @@
 <template>
-  <div id="formComponent" class="flex content-center justify-center my-24">
+  <div id="formComponent" class="form-component">
     <form
       class="h-auto w-[600px] m-auto bg-bt-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white"
     >
       <div v-show="loading" class="absolute w-full h-full bg-form-overlay"></div>
-      <div class="m-10">
+      <div class="login-social m-10">
         <h3 class="text-center font-bold">
           <span class="text-b-info">{{ lang.get("words.Chronostep") }}</span>
           <span class="text-b-create">{{ lang.get("words.Community") }}</span>
@@ -12,6 +12,7 @@
         <p class="text-center">{{ lang.get("words.WelcomeToChronoCommunity") }}</p>
         <div class="grid justify-center grid grid-cols-1 gap-6 my-10">
           <button
+            @click="loginWithFacebook($event)"
             type="button"
             class="h-14 w-full text-b-create bg-white border-2 border-b-create rounded-md"
           >
@@ -33,7 +34,7 @@
           </span>
         </p>
       </div>
-      <div class="r-field flex flex-col gap-6 m-10">
+      <div class="login-form r-field flex flex-col gap-6 m-10">
         <div class="r-field-required grid gap-y-5">
           <div>
             <label class="grid gap-y-2">
@@ -257,6 +258,31 @@ export default {
 </script>
 <style scoped lang="scss">
 @import "../../../sass/imports";
+.form-component {
+  display: grid;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    grid-gap: $base-gap;
+    margin: 6rem auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .form-component {
+    margin: $base-gap;
+
+    form {
+      border: none!important;
+      background-color: transparent;
+      width: 100%;
+      box-shadow: none;
+
+      .login-form.m-10, .login-social.m-10 {
+        margin: 0;
+      }
+    }
+  }
+}
 .border-b-input {
   border: thin solid $brand-bg-input;
 }
