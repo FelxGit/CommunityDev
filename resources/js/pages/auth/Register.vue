@@ -1,8 +1,8 @@
 <template>
-  <div id="formComponent" class="flex content-center justify-center my-24">
+  <div id="formComponent" class="form-component">
     <form class="h-auto w-[600px] m-auto bg-bt-secondary shadow-gray-900 shadow-xl relative rounded-md border border-white">
       <div v-show="loading" class="absolute w-full h-full bg-form-overlay"></div>
-      <div class="m-10">
+      <div class="login-social m-10">
         <h3 class="text-center font-bold">
           <span class="text-b-info">{{ lang.get('words.Chronostep') }}</span> <span class="text-b-create">{{ lang.get('words.Community') }}</span>
         </h3>
@@ -32,7 +32,7 @@
           </span>
         </p>
       </div>
-      <div class="r-field flex flex-col gap-10 m-10">
+      <div class="login-form r-field flex flex-col gap-10 m-10">
         <div class="r-field-required grid gap-y-5">
           <div>
             <label class="grid gap-y-2">
@@ -408,6 +408,34 @@ export default {
 </script>
 <style scoped lang="scss">
 @import '../../../sass/imports';
+  .form-component {
+    display: grid;
+      grid-template-columns: 1fr;
+      justify-content: center;
+      align-items: center;
+      grid-gap: $base-gap;
+      margin: 6rem auto;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .form-component {
+      margin: $base-gap;
+
+      form {
+        border: none!important;
+        background-color: transparent;
+        width: 100%;
+        box-shadow: none;
+
+        .login-form.m-10, .login-social.m-10 {
+          margin: 0;
+        }
+      }
+    }
+    .horizontal-line-text {
+      padding: 0
+    }
+  }
   .border-b-input {
     border: thin solid $brand-bg-input;
   }

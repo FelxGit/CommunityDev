@@ -128,7 +128,6 @@ export default {
     this.initData()
   },
   mounted() {
-    console.log('mounted', this.trumbowyg)
     $.noConflict();
 
     $('#post').trumbowyg({
@@ -267,7 +266,6 @@ export default {
       return `+ ${count} more`
     },
     assignTrumbowygDesc(e) {
-      console.log('assignTrumbowygDesc', e.target.value);
       this.form.plain_description = e.target.value;
     }
   },

@@ -233,7 +233,7 @@
       this.init();
       window.Echo.channel("usernotify." + this.user.id)
         .subscribed(() => {
-          console.log("Echo connected to PieSocket channel!");
+          console.log("Echo connected to usernotify channel!");
         })
         .listen(".UserNotify", (data) => {
           console.log('Broadcast:' + JSON.stringify(data))
