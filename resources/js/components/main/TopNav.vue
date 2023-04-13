@@ -63,7 +63,7 @@
           />
         </div>
         <ul
-          class="flex flex-col mt-4 sm:mt-0 bg-bt-secondary rounded-lg md:flex-row md:space-x-4 md:mt-0:md:text-sm md:font-medium md:border-0 md:bg-bt-secondary static sm:absolute right-4 sm:right-20"
+          class="flex flex-col sm:mt-0 bg-bt-secondary rounded-lg md:flex-row md:space-x-4 md:mt-0:md:text-sm md:font-medium md:border-0 md:bg-bt-secondary static sm:absolute right-4 sm:right-20"
         >
           <li
             v-show="!isLoggedIn"
@@ -88,9 +88,8 @@
           </li>
           <li
             v-show="isLoggedIn"
-            class="flex justify-center sm:justify-start bg-b-link sm:bg-transparent rounded"
+            class="flex justify-center align-items-center"
           >
-            <!-- Dropdown menu -->
             <notification></notification>
           </li>
           <li v-show="isLoggedIn" class="flex justify-center sm:justify-start">
@@ -107,7 +106,7 @@
                 alt="Jese image"
               />
               <span
-                class="ellipsis w-[100px] mx-auto sm:mx-0 sm:ml-4 text-b-info capitalize"
+                class="pl-2 ellipsis w-[100px] mx-auto sm:mx-0 sm:ml-4 text-b-info capitalize"
                 >{{ _.get(user, "name") }}</span
               >
             </button>
@@ -129,18 +128,13 @@
               </div>
               <ul class="py-1" aria-labelledby="user-menu-button">
                 <li>
-                  <router-link
-                    :to="{ name: 'dashboard' }"
-                    class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                    >Dashboard</router-link
-                  >
+                  <router-link :to="{ name: 'dashboard' }" class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</router-link>
                 </li>
                 <li>
                   <span
                     @click="signOut()"
                     class="block py-2 px-6 text-sm text-gray-700 hover:bg-gray hover:cursor-pointer dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white router-link-exact-active router-link-active"
-                    >Sign Out</span
-                  >
+                    >Sign Out</span>
                 </li>
               </ul>
             </div>

@@ -36,7 +36,7 @@
       </router-link>
       <router-link
         @click.native="setActiveTab(2)"
-        :to="{ name: 'user' }"
+        :to="{ name: 'profile' }"
         :class="`ripple ${activeTab == USER ? 'active' : ''}`"
       >
         <label class="round" for="t2"

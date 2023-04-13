@@ -48,7 +48,7 @@ export default {
     display: none;
   }
   .landingLoggedIn {
-    grid-template-columns: auto auto;
+    grid-template-columns: auto;
   }
 }
 </style>

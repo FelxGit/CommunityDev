@@ -1,9 +1,13 @@
 <template>
   <div id="notification-component">
     <button
+    @click="showNotificationList"
     id="dropdownNotificationButton"
     data-dropdown-toggle="dropdownNotification"
-    class="relative w-full bg-b-link sm:bg-transparent items-center text-sm font-medium text-center text-gray-500 hover:text-gray-900 focus:outline-none dark:hover:text-white dark:text-gray-400 rounded"
+    :class="[
+      'relative d-flex justify-items-center align-items-center sm:bg-transparent ripple',
+      { 'bg-transparent': isActiveNotifList }
+    ]"
     type="button"
   >
     <span
@@ -11,7 +15,7 @@
       class="absolute ml-2 mt-1 bg-b-danger b-danger text-white text-2xs leading-3 rounded-full hover:cursor-pointer"
       >{{ notifications.length }}</span
     >
-    <i class="fa-regular fa-bell text-lg text-b-info"></i>
+    <i class="fa-regular fa-bell m-auto text-lg text-b-info"></i>
   </button>
   <div
       id="dropdownNotification"
@@ -20,12 +24,6 @@
       data-popper-reference-hidden=""
       data-popper-escaped=""
       data-popper-placement="bottom"
-      style="
-        position: absolute;
-        inset: 0px auto auto 0px;
-        margin: 0px;
-        transform: translate(0px, 15803px);
-      "
     >
       <div
         class="block py-2 px-6 font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-800 dark:text-white"
@@ -216,6 +214,7 @@
     name: 'notification',
     data() {
       return {
+        isActiveNotifList: false,
         notificationStatus: false,
         notifications: [],
       };
@@ -273,12 +272,28 @@
           path: '/' + link.split('/')[3] + '/' + slugId,
           params: slugId
         };
+      },
+      showNotificationList() {
+        console.log('showNotificationList');
+        this.$router.push({ name: 'notif-list' });
       }
     }
   })
 </script>
 <style lang="scss">
-#notification-component {
-  margin: auto
+@import '../../sass/imports';
+
+@media screen and (max-width: 1200px) {
+
+  #dropdownNotificationButton {
+    position: fixed;
+    bottom: 50px;
+    right: 0px;
+    height: 50px;
+    width: 50px;
+    z-index: $z-index-level-3;
+    border-radius: 50%;
+    color: black;
+  }
 }
 </style>

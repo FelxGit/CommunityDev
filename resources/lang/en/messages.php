@@ -69,6 +69,8 @@ return [
     'MiddleName' => 'Middle Name',
     'MobileApplication' => 'Mobile Application',
     'MobileAdDescription' => 'Check our app version. We just made it more accessible for anyone to use with our services.',
+    'MessageNow' => 'MESSAGE NOW',
+
     // N
     'Name' => 'Name',
     'Nickname' => 'Nickname',

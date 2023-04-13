@@ -20,6 +20,7 @@
       {{ alert.message }}
     </ui-alert>
 
+    <notification></notification>
     <loading v-show="loading" :type="loader.type.isByPage" :withLoading="true"></loading>
   </div>
 </template>
@@ -32,6 +33,7 @@ import CommunityFooter from "../components/main/Footer.vue";
 import TabBar from "../components/main/TabBar.vue";
 import ConfirmationModal from "../components/Confirmation.vue";
 import Multiselect from "vue-multiselect";
+import Notification from '../components/Notification.vue'
 
 Vue.component("UiButton", require("../components/UiButton.vue").default);
 Vue.component("UiAlert", require("../components/UiAlert.vue").default);
@@ -46,7 +48,7 @@ export default {
       param_reset_token: "",
     };
   },
-  components: { TopNav, ConfirmationModal, CommunityFooter, TabBar },
+  components: { TopNav, ConfirmationModal, CommunityFooter, TabBar, Notification },
   beforeMount() {
     this.initApp();
   },
