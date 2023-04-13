@@ -23,6 +23,8 @@ const app = new Vue({
     created: function () {
 
         mutations.setLoading(true)
+
+        // Auth
         let user = localStorage['chronoknowledge.user']? JSON.parse(localStorage['chronoknowledge.user']) : null;
         const urlParams = new URLSearchParams(window.location.search);
         const param_userId = urlParams.get('user') ? urlParams.get('user') : null;
@@ -34,17 +36,20 @@ const app = new Vue({
         } else if (param_userId) {
 
           this.$http.get('api/users/' + param_userId)
-          .then( function (response) {
+          .then((response) => {
 
             localStorage.setItem('chronoknowledge.jwt', JSON.stringify(param_token));
             localStorage.setItem('chronoknowledge.user', JSON.stringify(response.data));
-            mutations.setUser(response.data);
-            mutations.setIsLoggedIn(true)
+
+            // assuming current is login popup window
+            window.close();
           })
           .catch( function (error) {
             console.log(error);
           })
         }
+
+        // language
 
         this.$http.get('api/language')
         .then( response => {
@@ -62,19 +67,15 @@ const app = new Vue({
         })
 
         router.beforeEach((to, from, next) => {
-
+            // if route is set to require authentication, redirect to login
             if (to.matched.some(record => record.meta.requiresAuth)) {
-              // this route requires auth, check if logged in
-              // if not, redirect to login page.
               if (this.user)
                 next()
               else
                 next({ name: 'login' })
 
             } else {
-              let noAuthExcept = (to.name == 'login' || to.name == 'register') && !this._.isEmpty(this.user);
-
-              if (noAuthExcept)
+              if (!this._.isEmpty(this.user) && to.name.includes(['login', 'register']))
                 next({ name: 'landing-page' })
               else
                 next()

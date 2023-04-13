@@ -4,6 +4,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import LandingPage from '../pages/LandingPage.vue'
+import userRoutes from '../pages/user'
 import SidebarRoutes from '../pages/sidebar-views'
 import authRoutes from '../pages/auth'
 import postRoutes from '../pages/posts'
@@ -18,6 +19,8 @@ const routes = [
       ...postRoutes
     ]
   },
+  ...userRoutes,
+  ...SidebarRoutes,
   ...authRoutes,
   ...postRoutes
 ];

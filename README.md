@@ -47,4 +47,10 @@ Please run
 - docker-compose run npm run watch
 
 ------------------------
+RUNNING THE PROJECT
+
+Exec
+  docker-compose up -d
+  docker-compose run npm run watch-poll
+  php artisan websocket:serve
 

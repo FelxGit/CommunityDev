@@ -3,9 +3,11 @@ namespace App\Services;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Helpers\Websocket;
 use App\Models\User;
 use App\Notifications\ResetPasswordLink;
 use App\Interfaces\UserRepositoryInterface;
+use Carbon\Carbon;
 use Exception;
 use Socialite;
 
@@ -97,6 +99,63 @@ class UserService
                 ];
             }
 
+            \DB::commit();
+        } catch (Exception $e) {
+            \DB::rollback();
+            \Log::error($e->getMessage());
+        }
+
+        return $data;
+    }
+
+    /**
+     * Login facebook user
+     *
+     * @return Array $data
+     */
+    public function loginFacebook()
+    {
+        $data = [];
+
+        try {
+            \DB::beginTransaction();
+
+            $user = null;
+            $f_user = Socialite::driver('facebook')->stateless()->user();
+            $user = User::where('email', $f_user->email)->first();
+            $existEmailButNotLinked = $user && empty($user->facebook_id);
+
+            if ($existEmailButNotLinked) {
+                $adjustAttributes = [ 'facebook_id' => $f_user->id ];
+                $user = $this->repository->adjust($user->id, $adjustAttributes);
+            } else if (empty($user)) {
+                // non existent
+                $attributes = [
+                    'google_id' => $f_user->id,
+                    'role_id' => User::NORMAL_USER,
+                    'email' => $f_user->email,
+                    'username' => $f_user->name,
+                    'password' => \Hash::make(User::PASSWORD_DEFAULT),
+                    'name' => $f_user->name,
+                    'zip_code' => 0000,
+                    'address' => '--',
+                    'tel' => '00000000000',
+                    'email_verified_at' => Carbon::now()
+                ];
+
+                $user = $this->repository->add($attributes);
+            } else {
+                //
+            }
+
+            \Auth::login($user);
+
+            if ($user = \Auth::user()) {
+                $data = [
+                    'token' => $user->createToken('chronoknowledge')->accessToken,
+                    'user' => $user
+                ];
+            }
             \DB::commit();
         } catch (Exception $e) {
             \DB::rollback();

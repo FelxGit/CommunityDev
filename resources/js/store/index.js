@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import axios from 'axios'
+import appConfig from '../config/app.env'
 
 const state = Vue.observable({
   _token: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
@@ -7,6 +8,7 @@ const state = Vue.observable({
   isLoggedIn: false,
   loading: false,
   lang: null,
+  windowOpen: null,
   alert: {
     showAlert: false,
     type: 'info',
@@ -22,10 +24,10 @@ const state = Vue.observable({
       btPrimary: 'rgb(24, 25, 26)'
     },
     size: '24px',
-    type: [
-      'by-task', // 0
-      'by-page' // 1
-    ]
+    type: {
+      isByTask : 'by-task',
+      isByPage : 'by-page'
+    }
   },
   trumbowyg: {
     upload_type: {
@@ -65,7 +67,7 @@ const state = Vue.observable({
     },
     uploadDataToken: () => {
       return {name: '_token', value: state._token};
-    }
+    },
   },
   select: {
     height: '9.375' //px
@@ -82,7 +84,9 @@ export const getters = {
     user: () => state.user,
     isLoggedIn: () => state.isLoggedIn,
     CKEditor: () => state.CKEditor,
-    trumbowyg: () => state.trumbowyg
+    trumbowyg: () => state.trumbowyg,
+    appConfig: () => appConfig,
+    isMobile: () => window.innerWidth <= 1200
 }
 
 export const mutations = {
@@ -90,6 +94,7 @@ export const mutations = {
     setIsLoggedIn: (val) => state.isLoggedIn = val,
     setLoading: (val) => state.loading = val,
     setLang: (lang) => state.lang = lang,
+    setWindowOpen: (val) => state.windowOpen = val,
     setAlert: (data) => {
       if(_.get(data, 'showAlert')) state.alert.showAlert = data.showAlert
       if(_.get(data, 'type')) state.alert.type = data.type

@@ -34,5 +34,10 @@ return [
         'client_secret' => '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',
         'redirect' => env('APP_URL') . '/api/auth/google/callback',
     ],
+    'facebook' => [
+        'client_id' => '987334829344378',
+        'client_secret' => '2d88a9bc187424e550988c6eba0c0b96',
+        'redirect' => env('APP_URL') . '/api/auth/facebook/callback',
+    ],
 
 ];

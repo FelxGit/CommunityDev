@@ -1,50 +1,61 @@
-
 <template>
   <div>
     <div class="loading"></div>
-    <clip-loader v-show="type == loader.type[0] && withLoading" class="loaderCenter grid content-center" :loading="withLoading" :color="loader.color.bLink" :size="loader.size"></clip-loader>
-    <img v-show="type == loader.type[1] && withLoading" class="h-12 loaderCenter"  style="z-index: 9999" src="../../assets/chronostep.png" />
+    <clip-loader
+      v-show="type == loader.type.isByTask && withLoading"
+      class="loaderCenter grid content-center"
+      :loading="withLoading"
+      :color="loader.color.bLink"
+      :size="loader.size"
+    ></clip-loader>
+    <img
+      v-show="type == loader.type.isByPage && withLoading"
+      class="h-12 loaderCenter"
+      style="z-index: 9999"
+      src="../../assets/chronostep.png"
+    />
   </div>
 </template>
 
 <script>
-  import Vue from "vue";
-  import { getters, mutations, actions } from "../store";
+import Vue from "vue";
+import { getters, mutations, actions } from "../store";
 
-  export default {
-    props: {
-      type: {
-        type: String,
-        default: 'by-task' // by-page
-      },
-      withLoading: false
+export default {
+  props: {
+    type: {
+      type: String,
+      default: "by-task", // by-page
     },
-    data() {
-      return {
-        //
-      };
-    },
-    beforeMount() {
-    },
-    computed: {
-      ...getters
-    },
-    methods: {
-      ...mutations,
-      ...actions
-    }
-  };
+    withLoading: false,
+  },
+  data() {
+    return {
+      //
+    };
+  },
+  beforeMount() {},
+  computed: {
+    ...getters,
+  },
+  methods: {
+    ...mutations,
+    ...actions,
+  },
+};
 </script>
 
 <style scoped lang="scss">
-@import '../../sass/imports';
+@import "../../sass/imports";
 .loading {
   position: absolute;
-  top: 0; right: 0; bottom: 0; left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgb(24, 25, 26, 0.5);
+  background-color: rgb(24, 25, 26, 1);
   z-index: $z-index-level-6;
 }
-
 </style>
