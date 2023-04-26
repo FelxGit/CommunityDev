@@ -20,7 +20,7 @@
       {{ alert.message }}
     </ui-alert>
 
-    <notification></notification>
+    <notification v-show="isMobile"></notification>
     <loading v-show="loading" :type="loader.type.isByPage" :withLoading="true"></loading>
   </div>
 </template>
